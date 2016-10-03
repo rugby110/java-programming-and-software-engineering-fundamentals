@@ -1,58 +1,53 @@
 
 /**
- * findStopIndex finds a valid stop codon in dna that occurs after index. 
- * If no valid stop codon is found, return dna.length()
+ * GenesFinder finds genes in a DNA string.
+ * 
+ * testFinder runs printAll with different sequences of dna, 
+ * also printing dna.
+ * 
+ * printAll prints the genes it finds in dna, in the same character 
+ * case as dna.
+ * @param dna is String being searched
+ * 
+ * findStopIndex finds closest valid stop codon in dna that occurs 
+ * after index. 
  * @param dna is String being searched
  * @param index is index where search starts
- * @return index of beginning of a valid stop codon, 
- * or dna.length() if no valid codon
+ * @return index of beginning of closest valid stop codon, 
+ * or -1 if no valid codon
  * 
  * @author Brienna Herold
  * @version Oct. 2, 2016
  */
 public class GenesFinder {
     public int findStopIndex(String dna, int index) {
-        // NOTE: probably needs a better method than using an array 
-        // to hold indexes for future comparison for smallest index?
-        
-        int pos;
-        // Declare an array of integers to save hold indexes
-        int[] positions;
-        // Allocate memory for 3 possible codons
-        positions = new int[3];
-
         // Find first occurrence of TAG past index
-        pos = dna.indexOf("tag", index);
-        if (pos != -1 && (pos - index) % 3 == 0) {
-            // If TAG is found & gene is a multiple of three, hold index
-            System.out.println("found TAG: " + pos);
-            positions[0] = pos;
+        int tag = dna.indexOf("tag", index);
+        if (tag == -1 || (tag - index) % 3 != 0) {
+            // If TAG isn't found or gene isn't a multiple of three, set tag to max
+            tag = Integer.MAX_VALUE;
         }
-        // Find first occurrence of TGA past index
-        pos = dna.indexOf("tga", index);
-        if (pos != -1 && (pos - index) % 3 == 0) {
-            // If TGA is found & gene is a multiple of three, hold index
-            System.out.println("found TGA: " + pos);
-            positions[1] = pos;
-        }
-        // Find first occurrence of TAA past index
-        pos = dna.indexOf("taa", index);
-        if (pos != -1 && (pos - index) % 3 == 0) {
-            // If TAA is found & gene is a multiple of three, hold index
-            System.out.println("found TAA: " + pos);
-            positions[2] = pos;
-        }
+        System.out.println("found TAG: " + tag);
         
-        // Return smallest index (COULD BE IMPROVED)
-        if (positions.length > 0) {
-            int smallest = Integer.MAX_VALUE;
-            for (int i = 0; i < positions.length; i++) {
-                if (smallest > positions[i] && positions[i] > 0) {
-                    // Note: positions[i] > 0 is included
-                    // to circumvent empty array elements being selected
-                    smallest = positions[i];
-                }
-            }
+        // Find first occurrence of TGA past index
+        int tga = dna.indexOf("tga", index);
+        if (tga == -1 || (tga - index) % 3 != 0) {
+            // If TGA isn't found or gene isn't a multiple of three, set tag to max
+            tga = Integer.MAX_VALUE;
+        }
+        System.out.println("found TGA: " + tga);
+        
+        // Find first occurrence of TAA past index
+        int taa = dna.indexOf("taa", index);
+        if (taa == -1 || (taa - index) % 3 != 0) {
+            // If TAA isn't found or gene isn't a multiple of three, set tag to max
+            taa = Integer.MAX_VALUE;
+        }
+        System.out.println("found TAA: " + taa);
+        
+        int smallest = Math.min(taa, Math.min(tag, tga));
+        if (smallest < Integer.MAX_VALUE) {
+            // Return smallest index
             return smallest;
         } else {
             // No codon is found
@@ -60,8 +55,8 @@ public class GenesFinder {
         }
     }
     
-    public void printAll(String dna) {
-        dna = dna.toLowerCase();
+    public void printAll(String seq) {
+        String dna = seq.toLowerCase();
         int loc = 0;
         
         // While traversing dna
@@ -79,8 +74,12 @@ public class GenesFinder {
             // Find stop codon based on index of start codon
             int stop = findStopIndex(dna, start);
             if (stop != -1) {
-                // If stop codon is found, print gene
-                System.out.println("Gene: " + dna.substring(start, stop + 3));
+                // If stop codon is found, print gene in same case as seq
+                if (seq == dna) {
+                    System.out.println("GENE: " + dna.substring(start, stop + 3));
+                } else {
+                    System.out.println("GENE: " + dna.substring(start, stop + 3).toUpperCase());
+                }
             }
             
             // Update region of dna to look for codon in
@@ -89,16 +88,21 @@ public class GenesFinder {
     }
     
     public void testFinder() {
-        // Test 1
+        // Test 1, should print...
+        // ATGAAATGA
         //String dna = "ATGAAATGAAAA";
-        //String gene = "ATGAAATGA";
         
-        // Test 2
-        //String dna = "ccatgccctaataaatgtctgtaatgtaga";
+        // Test 2, should print...
+        // atgccctaa, atgtctgtaatgtag, atgtag
+        String dna = "ccatgccctaataaatgtctgtaatgtaga";
         
-        // Test 3
-        String dna = "CATGTAATAGATGAATGACTGATAGATATGCTTGTATGCTATGAAAATGTGAAATGACCCA";
+        // Test 3, should print...
+        // ATGTAA, ATGAATGACTGATAG, ATGCTATGA, ATGTGA
+        //String dna = "CATGTAATAGATGAATGACTGATAGATATGCTTGTATGCTATGAAAATGTGAAATGACCCA";
         
+        // Test 4, should print...
+        // ATGCTGACCTGATAG
+        //String dna = "ATGCTGACCTGATAG";
         
         System.out.println("DNA: " + dna);
         printAll(dna);
