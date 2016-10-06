@@ -1,6 +1,6 @@
-# [Java Programming and Software Engineering Fundamentals Specialization](https://www.coursera.org/specializations/java-programming)
+# [Java Programming and Software Engineering Fundamentals](https://www.coursera.org/specializations/java-programming)
 
-Created by Duke University
+A Coursera specialization created by Duke University
 
 ---
 

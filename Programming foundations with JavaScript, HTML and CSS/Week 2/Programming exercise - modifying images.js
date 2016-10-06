@@ -30,9 +30,12 @@ print(image);
 function swapRedGreen(img) {
     // For each pixel in image
     for (var px of img.values()) {
+        // Get red and green values
+        var red = px.getRed();
+        var green = px.getGreen();
         // Swap red and green values
-        px.setGreen(px.getRed());
-        px.setRed(px.getGreen());
+        px.setGreen(red);
+        px.setRed(green);
     }
     
     img.setSize(200,200);
