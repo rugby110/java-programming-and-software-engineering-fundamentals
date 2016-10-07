@@ -66,7 +66,7 @@ public class StoreGenes {
         }
         System.out.println("found TAA: " + taa);
         
-        int smallest = Math.min(taa, Math.min(tag, tga));
+        int smallest = Math.min(tag, Math.min(tga, taa));
         if (smallest < Integer.MAX_VALUE) {
             // Return smallest index
             return smallest;
@@ -103,7 +103,6 @@ public class StoreGenes {
         while (true) {
             // Find start codon in specified region of seq
             int start = dna.indexOf("atg", loc);
-            System.out.println("start: " + start);
             
             if (start == -1) {
                 // If no start codon is found, quit
@@ -111,23 +110,29 @@ public class StoreGenes {
                 break;
             }
             
-            // Find stop codon based on index of start codon
-            int stop = findStopIndex(dna, start);
+            // Find a stop codon after the start codon
+            int stop = findStopIndex(dna, start + 3);
+            System.out.println("start: " + start);
+            System.out.println("STOP: " + stop);
             // If stop codon is found, save gene as a variable in correct case
             // and add gene to StorageResource object
             if (stop != -1) {
                 if (seq == dna) {
                     String gene = dna.substring(start, stop + 3);
+                    System.out.println(gene);
                     store.add(gene);
                 } else {
                     String gene = dna.substring(start, stop + 3).toUpperCase();
+                    System.out.println(gene);
                     store.add(gene);
                 }
+                // Update region to dna to look for codon in, setting it to the index
+                // right after the stop codon to avoid next gene overlapping with current gene
+                loc = stop + 3;
+            } else {
+                // Update region of dna to look for codon in
+                loc = start + 1;
             }
- 
-            // Update region of dna to look for codon in
-            loc = start + 3;
-            
         }
         
         return store;
