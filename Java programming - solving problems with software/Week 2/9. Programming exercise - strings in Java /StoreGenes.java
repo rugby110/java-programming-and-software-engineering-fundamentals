@@ -4,6 +4,9 @@
  * 
  * testStorageGenes reads a file and calls the functions below on it.
  * 
+ * ctgFreq calculates the frequency of the CTG codon in the DNA.
+ * @param dna is String being searched
+ * 
  * storeAll finds genes in seq and stores them.
  * @param seq is String being searched
  * @return store, the StorageResource object containing genes
@@ -24,7 +27,7 @@
  * @param sr is a StorageResource of strings
  * 
  * @author Brienna Herold
- * @version Oct. 6, 2016
+ * @version Oct. 7, 2016
  */
 
 import edu.duke.*;
@@ -39,6 +42,23 @@ public class StoreGenes {
         // Print the number of genes found
         System.out.println("Number of genes found: " + genes.size());
         printGenes(genes);
+        
+        ctgFreq("CTGCTGCTGCTGCTGctgctgsdlfasdfadsfadgadgsctg");
+    }
+    
+    public void ctgFreq(String dna) {
+        dna = dna.toLowerCase();
+        int freq = 0;
+        int loc = 0;
+        while (loc != -1) {
+            loc = dna.indexOf("ctg", loc);
+            if (loc != -1) {
+                freq++;
+                loc += 1;
+            }
+        }
+        
+        System.out.println("CTG appears in this DNA strand " + freq + " times");
     }
    
     public int findStopIndex(String dna, int index) {
@@ -141,15 +161,20 @@ public class StoreGenes {
     public void printGenes(StorageResource sr) {
         // Print all strings that are longer than 60 characters
         int count = 0;
-        
+        int longest = 0;
         System.out.println("Printing strings that are longer than 60 characters...");
         for (String str : sr.data()) {
             if (str.length() > 60) {
                 count++;
                 System.out.println(str);
+                // Update variable if str is longest thus far
+                if (longest < str.length()) {
+                    longest = str.length();
+                }
             }
         }
         System.out.println("Printed " + count + " strings that are longer than 60 characters");
+        System.out.println("Longest string's length: " + longest);
         
         // Print strings whose C-G ratio is higher than 0.35
         int total = 0;
