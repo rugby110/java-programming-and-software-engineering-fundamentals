@@ -72,7 +72,7 @@ public class GenesFinder {
             }
             
             // Find stop codon based on index of start codon
-            int stop = findStopIndex(dna, start);
+            int stop = findStopIndex(dna, start + 3);
             if (stop != -1) {
                 // If stop codon is found, print gene in same case as seq
                 if (seq == dna) {
@@ -80,10 +80,13 @@ public class GenesFinder {
                 } else {
                     System.out.println("GENE: " + dna.substring(start, stop + 3).toUpperCase());
                 }
+                // Update region to dna to look for codon in, setting it to the index
+                // right after the stop codon to avoid next gene overlapping with current gene
+                loc = stop + 3;
+            } else {
+                // Update region of dna to look for codon in
+                loc = start + 1;
             }
-            
-            // Update region of dna to look for codon in
-            loc = start + 3;
         }
     }
     
@@ -93,7 +96,7 @@ public class GenesFinder {
         //String dna = "ATGAAATGAAAA";
         
         // Test 2, should print...
-        // atgccctaa, atgtctgtaatgtag, atgtag
+        // atgccctaa, atgtctgtaatgtag
         String dna = "ccatgccctaataaatgtctgtaatgtaga";
         
         // Test 3, should print...
