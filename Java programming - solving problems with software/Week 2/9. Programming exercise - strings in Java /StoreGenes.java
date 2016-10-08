@@ -35,15 +35,15 @@ import edu.duke.*;
 public class StoreGenes {
     public void testStorageGenes() {
         // Read file (which is a long string of DNA)
-        FileResource file = new FileResource("brca1line.fa");
+        FileResource file = new FileResource("GRch38dnapart.fa");
         // Find and store all genes in file
         String sequence = file.asString();
         StorageResource genes = storeAll(sequence);
         // Print the number of genes found
         System.out.println("Number of genes found: " + genes.size());
         printGenes(genes);
-        
-        ctgFreq("CTGCTGCTGCTGCTGctgctgsdlfasdfadsfadgadgsctg");
+        // Print the number of times CTG appears in the DNA string
+        ctgFreq(sequence);
     }
     
     public void ctgFreq(String dna) {

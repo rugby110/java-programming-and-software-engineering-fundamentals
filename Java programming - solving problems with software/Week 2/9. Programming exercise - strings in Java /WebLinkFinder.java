@@ -36,7 +36,7 @@ public class WebLinkFinder {
     }
     
     public void testURLWithStorage() {
-        StorageResource links = findLinks("http://www.google.com");
+        StorageResource links = findLinks("http://www.dukelearntoprogram.com/course2/data/newyorktimes.html");
         
         // Print number of links found
         System.out.println(links.size() + " links found");
