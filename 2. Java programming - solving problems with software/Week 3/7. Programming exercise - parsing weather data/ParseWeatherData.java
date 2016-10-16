@@ -2,6 +2,12 @@
 /**
  * ParseWeatherData parses CSV files containing weather data. 
  * 
+ * fileWithColdestTemperature() returns a string that is the name of the file 
+ * from selected files that has the coldest temperature.
+ * 
+ * testFileWithColdestTemperature() tests fileWithColdestTemperature(),
+ * and it also prints out information about the temperatures on the file.
+ * 
  * coldestHourInFile() returns the CSVRecord with the coldest temperature in the 
  * file and thus all the information about the coldest temperature, such as the 
  * hour of the coldest temperature.
@@ -11,12 +17,62 @@
  * about that coldest temperature.
  * 
  * @author Brienna Herold
- * @version Oct. 12, 2016
+ * @version Oct. 16, 2016
  */
 import edu.duke.*;
 import org.apache.commons.csv.*;
+import java.io.*;
 
 public class ParseWeatherData {
+    public String fileWithColdestTemperature() {
+        String name = null;
+        double coldestTemp = -9999;
+        
+        // Allow user to choose one or more files from a directory 
+        DirectoryResource dir = new DirectoryResource();
+        // For each file the user chose
+        for (File f : dir.selectedFiles()) {
+            // Create a parser object to access contents
+            FileResource fr = new FileResource(f);
+            CSVParser parser = fr.getCSVParser();
+            // Get coldest temperature in file
+            CSVRecord coldestHour = coldestHourInFile(parser);
+            double coldestTempInFile = Double.parseDouble(coldestHour.get("TemperatureF"));
+            // If on first file,
+            if (name == null) {
+                name = f.getPath();
+                coldestTemp = coldestTempInFile;
+            } 
+            // Otherwise, if current file contains coldest temp so far, update variables
+            else {
+                if (coldestTemp > coldestTempInFile) {
+                    name = f.getPath();
+                    coldestTemp = coldestTempInFile;
+                }
+            }
+        }
+  
+        return name;
+    }
+    
+    public void testFileWithColdestTemperature() {
+        // Determine which file contains coldest temperature
+        String name = fileWithColdestTemperature();
+        System.out.println("Coldest day was in file " + name);
+        // Determine coldest temperature in that file
+        FileResource fr = new FileResource(name);
+        CSVParser parser = fr.getCSVParser();
+        CSVRecord coldestHour = coldestHourInFile(parser);
+        System.out.println("Coldest temperature on that day was " + coldestHour.get("TemperatureF"));
+        // Reset parser
+        parser = fr.getCSVParser();
+        // Print out all temperatures in that file
+        System.out.println("All the temperatures on the coldest day were: ");
+        for (CSVRecord record : parser) {
+            System.out.println(record.get("DateUTC") + ": " + record.get("TemperatureF"));
+        }
+    }
+    
     public CSVRecord coldestHourInFile(CSVParser parser) {
         CSVRecord coldestHour = null;
         
@@ -43,13 +99,12 @@ public class ParseWeatherData {
     }
     
     public void testColdestHourInFile() {
-        // Open CSV file
-        FileResource fr = new FileResource("nc_weather/2012/weather-2012-01-01.csv");
+        // Allow user to open a CSV file
+        FileResource fr = new FileResource();
         // Create a parser object to access file contents
         CSVParser parser = fr.getCSVParser();
-        
+        // Test
         CSVRecord coldestHour = coldestHourInFile(parser);
         System.out.println("Coldest hour occurred at " + coldestHour.get("TimeEST"));
-        
     }
 }
