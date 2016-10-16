@@ -2,19 +2,22 @@
 /**
  * ParseWeatherData parses CSV files containing weather data. 
  * 
+ * lowestHumidityInFile() returns the CSVRecord that has the lowest humidity. 
+ * If there is a tie, then return the first such record that was found.
+ * 
+ * testLowestHumidityInFile() tests lowestHumidityInFile().
+ * 
  * fileWithColdestTemperature() returns a string that is the name of the file 
  * from selected files that has the coldest temperature.
  * 
- * testFileWithColdestTemperature() tests fileWithColdestTemperature(),
- * and it also prints out information about the temperatures on the file.
+ * testFileWithColdestTemperature() tests fileWithColdestTemperature().
  * 
  * coldestHourInFile() returns the CSVRecord with the coldest temperature in the 
  * file and thus all the information about the coldest temperature, such as the 
  * hour of the coldest temperature.
  * @param CSVParser parser is an object that accesses contents of an open file
  * 
- * testColdestHourInFile() tests coldestHourInFile() and prints out information 
- * about that coldest temperature.
+ * testColdestHourInFile() tests coldestHourInFile().
  * 
  * @author Brienna Herold
  * @version Oct. 16, 2016
@@ -24,6 +27,38 @@ import org.apache.commons.csv.*;
 import java.io.*;
 
 public class ParseWeatherData {
+    public CSVRecord lowestHumidityInFile(CSVParser parser) {
+        CSVRecord lowestHumidity = null;
+        
+        // For each row in the CSV file
+        for (CSVRecord record : parser) {
+            // If on first row,
+            if (lowestHumidity == null) {
+                lowestHumidity = record;
+            } else {
+                // Get coldest temp and current temp
+                String currentStr = record.get("Humidity");
+                if (currentStr != "N/A") {
+                    double current = Double.parseDouble(currentStr);
+                    double lowest = Double.parseDouble(lowestHumidity.get("Humidity"));
+                    if (current < lowest) {
+                        lowestHumidity = record;
+                    }
+                }
+                
+            }
+        }
+        
+        return lowestHumidity;
+    }
+    
+    public void testLowestHumidityInFile() {
+        FileResource fr = new FileResource();
+        CSVParser parser = fr.getCSVParser();
+        CSVRecord csv = lowestHumidityInFile(parser);
+        System.out.println("Lowest humidity was " + csv.get("Humidity") + " at " + csv.get("DateUTC"));
+    }
+    
     public String fileWithColdestTemperature() {
         String name = null;
         double coldestTemp = -9999;
