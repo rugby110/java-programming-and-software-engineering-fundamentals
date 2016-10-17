@@ -2,6 +2,12 @@
 /**
  * ParseWeatherData parses CSV files containing weather data. 
  * 
+ * lowestHumidityInManyFiles() returns a CSVRecord that has the lowest humidity 
+ * over all the files. If there is a tie, then return the first such record 
+ * that was found. 
+ * 
+ * lowestLowestHumidityInManyFiles() tests lowestHumidityInManyFiles().
+ * 
  * lowestHumidityInFile() returns the CSVRecord that has the lowest humidity. 
  * If there is a tie, then return the first such record that was found.
  * 
@@ -27,28 +33,58 @@ import org.apache.commons.csv.*;
 import java.io.*;
 
 public class ParseWeatherData {
+    public CSVRecord lowestHumidityInManyFiles() {
+        CSVRecord record = null;
+        double lowestHumidity = -9999;
+        // Allow user to choose one or more files from a directory 
+        DirectoryResource dir = new DirectoryResource();
+        // For each file the user chose
+        for (File f : dir.selectedFiles()) {
+            // Create a parser object to access contents
+            FileResource fr = new FileResource(f);
+            CSVParser parser = fr.getCSVParser();
+            // Get record containing lowest humidity
+            CSVRecord rec = lowestHumidityInFile(parser);
+            double lowestHumidityInFile = Double.parseDouble(rec.get("Humidity"));
+            // If on first file, update variables
+            if (record == null) {
+                lowestHumidity = lowestHumidityInFile;
+                record = rec;
+            // Otherwise, if current file contains lowest humidity so far, update variables
+            } else if (lowestHumidityInFile < lowestHumidity) {
+                lowestHumidity = lowestHumidityInFile;
+                record = rec;
+            }
+        }
+        
+        return record;
+    }
+    
+    public void testLowestHumidityInManyFiles() {
+        CSVRecord row = lowestHumidityInManyFiles();
+        System.out.println("Lowest humidity was " + row.get("Humidity") + " at " + row.get("DateUTC"));
+    }
+    
     public CSVRecord lowestHumidityInFile(CSVParser parser) {
         CSVRecord lowestHumidity = null;
-        
         // For each row in the CSV file
         for (CSVRecord record : parser) {
-            // If on first row,
-            if (lowestHumidity == null) {
-                lowestHumidity = record;
-            } else {
-                // Get coldest temp and current temp
-                String currentStr = record.get("Humidity");
-                if (currentStr != "N/A") {
-                    double current = Double.parseDouble(currentStr);
+            // Continue only if there was a valid reading
+            if (record.get("Humidity") != "N/A") {
+                // If on first row,
+                if (lowestHumidity == null) {
+                    lowestHumidity = record;
+                } else {
+                    // Get coldest temp and current temp
+                    double current = Double.parseDouble(record.get("Humidity"));
                     double lowest = Double.parseDouble(lowestHumidity.get("Humidity"));
+                    // if current row contains lowest humidity so far, update variable
                     if (current < lowest) {
                         lowestHumidity = record;
                     }
                 }
-                
             }
         }
-        
         return lowestHumidity;
     }
     
