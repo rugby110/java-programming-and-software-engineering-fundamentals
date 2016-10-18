@@ -2,11 +2,16 @@
 /**
  * ParseWeatherData parses CSV files containing weather data. 
  * 
+ * averageTemperatureInFile() returns a double that represents the average 
+ * temperature in the file.
+ * 
+ * testAverageTemperatureInFile() tests averageTemperatureInFile().
+ * 
  * lowestHumidityInManyFiles() returns a CSVRecord that has the lowest humidity 
  * over all the files. If there is a tie, then return the first such record 
  * that was found. 
  * 
- * lowestLowestHumidityInManyFiles() tests lowestHumidityInManyFiles().
+ * testLowestHumidityInManyFiles() tests lowestHumidityInManyFiles().
  * 
  * lowestHumidityInFile() returns the CSVRecord that has the lowest humidity. 
  * If there is a tie, then return the first such record that was found.
@@ -33,6 +38,35 @@ import org.apache.commons.csv.*;
 import java.io.*;
 
 public class ParseWeatherData {
+    public double averageTemperatureInFile(CSVParser parser) {
+        double sum = 0;
+        double count = 0;
+        
+        // For each row in the CSV file
+        for (CSVRecord record : parser) {
+            double temp = Double.parseDouble(record.get("TemperatureF"));
+            // If there wasn't a valid reading
+            if (temp == -9999) {
+                break;
+            }
+            // Update variables
+            sum += temp;
+            count++;
+        }
+        
+        // Calculate average
+        double avg = sum/count;
+        return avg;
+    }
+    
+    public void testAverageTemperatureInFile() {
+        FileResource fr = new FileResource();
+        CSVParser parser = fr.getCSVParser();
+        double average = averageTemperatureInFile(parser);
+        System.out.println("Average temperature in file is " + average);
+    }
+    
+    
     public CSVRecord lowestHumidityInManyFiles() {
         CSVRecord record = null;
         double lowestHumidity = -9999;
@@ -43,7 +77,7 @@ public class ParseWeatherData {
             // Create a parser object to access contents
             FileResource fr = new FileResource(f);
             CSVParser parser = fr.getCSVParser();
-            // Get record containing lowest humidity
+            // Get lowest humidity
             CSVRecord rec = lowestHumidityInFile(parser);
             double lowestHumidityInFile = Double.parseDouble(rec.get("Humidity"));
             // If on first file, update variables
