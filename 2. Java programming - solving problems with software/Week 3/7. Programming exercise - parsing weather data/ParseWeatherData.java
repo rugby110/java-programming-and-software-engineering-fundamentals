@@ -2,6 +2,13 @@
 /**
  * ParseWeatherData parses CSV files containing weather data. 
  * 
+ * averageTemperatureWithHighHumidityInFile() returns a double that represents 
+ * the average temperature of only those temperatures when the humidity was 
+ * greater than or equal to value.
+ * 
+ * testAverageTemperatureWithHighHumidityInFile() tests 
+ * averageTemperatureWithHighHumidityInFile().
+ * 
  * averageTemperatureInFile() returns a double that represents the average 
  * temperature in the file.
  * 
@@ -38,6 +45,47 @@ import org.apache.commons.csv.*;
 import java.io.*;
 
 public class ParseWeatherData {
+    public double averageTemperatureWithHighHumidityInFile(CSVParser parser, int value) {
+        double sum = 0;  
+        int count = 0;
+        
+        // For each row in the CSV file 
+        for (CSVRecord record : parser) {
+            // Continue only if there was a valid reading
+            if (record.get("Humidity") != "N/A") {
+                // Get humidity
+                double humidity = Double.parseDouble(record.get("Humidity"));
+                // If humidity is greater than or equal to value
+                if (humidity >= value) {
+                    // If invalid temp reading, break
+                    double temp = Double.parseDouble(record.get("TemperatureF"));
+                    if (temp == -9999) {
+                        break;
+                    }
+                    // Otherwise, update tracker variables
+                    sum += temp;
+                    count++;
+                }
+            }
+        }
+        
+        // Calculate average temp
+        double avg = sum/count;
+        return avg;
+    }
+    
+    public void testAverageTemperatureWithHighHumidityInFile() {
+        FileResource fr = new FileResource();
+        CSVParser parser = fr.getCSVParser();
+        int value = 80;
+        double average = averageTemperatureWithHighHumidityInFile(parser, value);
+        if (Double.isNaN(average)) {
+            System.out.println("No temperatures with that humidity");
+        } else {
+            System.out.println("Average temp when humidity " + value + " is " + average);
+        }
+    }
+    
     public double averageTemperatureInFile(CSVParser parser) {
         double sum = 0;
         double count = 0;
