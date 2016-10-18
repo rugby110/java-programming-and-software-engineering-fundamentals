@@ -151,19 +151,20 @@ public class ParseWeatherData {
         CSVRecord lowestHumidity = null;
         // For each row in the CSV file
         for (CSVRecord record : parser) {
-            // Continue only if there was a valid reading
-            if (record.get("Humidity") != "N/A") {
-                // If on first row,
-                if (lowestHumidity == null) {
+            // Break if there was an invalid reading
+            if (record.get("Humidity").equals("N/A")) {
+                break;
+            }
+            // If on first row,
+            if (lowestHumidity == null) {
+                lowestHumidity = record;
+            } else {
+                // Get coldest temp and current temp
+                double current = Double.parseDouble(record.get("Humidity"));
+                double lowest = Double.parseDouble(lowestHumidity.get("Humidity"));
+                // if current row contains lowest humidity so far, update variable
+                if (current < lowest) {
                     lowestHumidity = record;
-                } else {
-                    // Get coldest temp and current temp
-                    double current = Double.parseDouble(record.get("Humidity"));
-                    double lowest = Double.parseDouble(lowestHumidity.get("Humidity"));
-                    // if current row contains lowest humidity so far, update variable
-                    if (current < lowest) {
-                        lowestHumidity = record;
-                    }
                 }
             }
         }
@@ -258,6 +259,12 @@ public class ParseWeatherData {
         CSVParser parser = fr.getCSVParser();
         // Test
         CSVRecord coldestHour = coldestHourInFile(parser);
-        System.out.println("Coldest hour occurred at " + coldestHour.get("TimeEST"));
+        // Account for difference in TimeEST/TimeEDT (daylight savings)
+        if (coldestHour.isSet("TimeEST")) {
+            System.out.println("Coldest hour occurred at " + coldestHour.get("TimeEST"));
+        } else {
+            System.out.println("Coldest hour occurred at " + coldestHour.get("TimeEDT"));
+        }
+        System.out.println("Temperature at that hour was " + coldestHour.get("TemperatureF"));
     }
 }
