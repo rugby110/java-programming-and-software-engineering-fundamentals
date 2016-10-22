@@ -1,8 +1,8 @@
 #BlueJ class context
-comment0.params=
-comment0.target=void\ printNames()
-comment1.params=fr
-comment1.target=void\ totalBirths(edu.duke.FileResource)
+comment0.params=year\ name\ gender
+comment0.target=int\ getRank(int,\ java.lang.String,\ java.lang.String)
+comment1.params=
+comment1.target=void\ testGetRank()
 comment2.params=
-comment2.target=void\ testTotalBirths()
+comment2.target=void\ totalBirths()
 numComments=3
