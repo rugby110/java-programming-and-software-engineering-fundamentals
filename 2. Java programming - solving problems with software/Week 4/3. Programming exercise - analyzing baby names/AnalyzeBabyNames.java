@@ -1,5 +1,6 @@
 import edu.duke.*;
 import org.apache.commons.csv.*;
+import java.util.ArrayList;
 /**
  * Write a description of AnalyzeBabyNames here.
  * 
@@ -26,25 +27,35 @@ public class AnalyzeBabyNames {
 		int totalBirths = 0;
 		int totalBoys = 0;
 		int totalGirls = 0;
+		int totalNames = 0;
+		ArrayList<String> uniqueGirlNames = new ArrayList<String> ();
+		ArrayList<String> uniqueBoyNames = new ArrayList<String>();
 		for (CSVRecord rec : fr.getCSVParser(false)) {
 			int numBorn = Integer.parseInt(rec.get(2));
 			totalBirths += numBorn;
+			totalNames++;
 			if (rec.get(1).equals("M")) {
 				totalBoys += numBorn;
+				String name = rec.get(1);
+				uniqueBoyNames.add(name);
 			}
 			else {
 				totalGirls += numBorn;
+				String name = rec.get(1);
+				uniqueGirlNames.add(name);
 			}
 		}
 		
+		System.out.println("Unique boy names: " + uniqueBoyNames.size());
+		System.out.println("Unique girl names: " + uniqueGirlNames.size());
+		System.out.println("Total names: " + totalNames);
 		System.out.println("total births = " + totalBirths);
 		System.out.println("female girls = " + totalGirls);
 		System.out.println("male boys = " + totalBoys);
 	}
 
 	public void testTotalBirths () {
-		//FileResource fr = new FileResource();
-		FileResource fr = new FileResource("data/yob2014.csv");
+		FileResource fr = new FileResource();
 		totalBirths(fr);
 	}
 }
