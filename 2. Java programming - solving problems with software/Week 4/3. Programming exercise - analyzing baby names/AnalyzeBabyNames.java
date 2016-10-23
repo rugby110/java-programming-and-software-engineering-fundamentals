@@ -11,10 +11,42 @@ import org.apache.commons.csv.*;
  * @param name is a String representing the name to calculate a rank for
  * @param gender is a String representing the gender the name needs to be
  * 
+ * getName() returns the name of the person in the file at this rank, for the given gender, 
+ * where rank 1 is the name with the largest number of births. If the rank does not exist in the file, 
+ * then “NO NAME” is returned.
+ * @param year is an int representing the year of the file to parse
+ * @param rank is an int representing the rank of the name to return
+ * @param gender is a String representing the gender the name needs to be
+ * 
  * @author Brienna Herold
- * @version Oct. 21, 2016
+ * @version Oct. 22, 2016
  */
 public class AnalyzeBabyNames {
+    public String getName(int year, int rank, String gender) {
+        FileResource fr = new FileResource("data/us_babynames_by_year/yob" + year + ".csv");
+        // For every name in the file
+        for (CSVRecord rec : fr.getCSVParser(false)) {
+            String name = rec.get(0);
+            // Get its rank if gender matches param
+            if (rec.get(1).equals(gender)) {
+                int currentRank = getRank(year, name, gender);
+                // Return name if rank matches param
+                if (rank == currentRank) {
+                    return name;
+                }
+            }
+        }
+        return "NO NAME";
+    }
+    
+    public void testGetName() {
+        int year = 2012;
+        int rank = 2;
+        String gender = "M";
+        String name = getName(year, rank, gender);
+        System.out.println("In " + year + ", the " + gender + " at rank " + rank + " was " + name);
+    }
+    
     public int getRank(int year, String name, String gender) {
         FileResource fr = new FileResource("data/us_babynames_by_year/yob" + year + ".csv");
 
@@ -36,7 +68,7 @@ public class AnalyzeBabyNames {
             String currentNumOfBirths = record.get(2);
             // Convert current number of births so it's useable in numeric comparison
             int currentNumOfBirthsInt = Integer.parseInt(currentNumOfBirths);
-            // If gender matches argument AND current number of births is greater than that retrieved
+            // If gender matches param AND current number of births is greater than that retrieved
             if (record.get(1).equals(gender) && currentNumOfBirthsInt > births) {
                 // Increment rank only if the number of births is not found in nums
                 // cuz a rank may encompass several names with the same number of births
@@ -47,7 +79,7 @@ public class AnalyzeBabyNames {
             }
         } 
         
-        // If no name met given conditions, return -1, otherwise return rank
+        // If no name met conditions, return -1, otherwise return rank
         if (births == 0) {
             return -1;
         } 
@@ -59,6 +91,8 @@ public class AnalyzeBabyNames {
         System.out.println("Rank of 2012, Mason, M: " + rank);  
         rank = getRank(2012, "Mason", "F");
         System.out.println("Rank of 2012, Mason, F: " + rank);  
+        rank = getRank(2012, "Sophia", "M");
+        System.out.println("Rank of 2012, Sophia, M: " + rank);  
     }
 
     public void totalBirths () {
