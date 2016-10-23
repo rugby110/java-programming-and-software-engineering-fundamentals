@@ -73,8 +73,8 @@ public class AnalyzeBabyNames {
     }
     
     public void testGetTotalBirthsRankedHigher() {
-        int year = 2012;
-        String name = "Ethan";
+        int year = 1990;
+        String name = "Drew";
         String gender = "M";
         int totalBirths = getTotalBirthsRankedHigher(year, name, gender);
         System.out.println("Total number of births of those with the same gender who " +
@@ -105,15 +105,10 @@ public class AnalyzeBabyNames {
     }
     
     public void testGetAverageRank() {
-        String name = "Mason";
+        String name = "Robert";
         String gender = "M";
         double avg = getAverageRank(name, gender);
-        System.out.println("Average rank of " + name + ", " + gender + ":" + avg);
-        
-        name = "Jason";
-        gender = "M";
-        avg = getAverageRank(name, gender);
-        System.out.println("Average rank of " + name + ", " + gender + ":" + avg);
+        System.out.println("Average rank of " + name + ", " + gender + ": " + avg);
     }
     
     public int yearOfHighestRank(String name, String gender) {
@@ -141,7 +136,7 @@ public class AnalyzeBabyNames {
     }
     
     public void testYearOfHighestRank() {
-        String name = "Mason";
+        String name = "Mich";
         String gender = "M";
         int year = yearOfHighestRank(name, gender);
         System.out.println("The year with the highest rank for " + name + " (gender " + gender
@@ -154,19 +149,19 @@ public class AnalyzeBabyNames {
         // Determine name born in newYear that is at the same rank and gender
         String newName = getName(newYear, rank, gender);
         System.out.println(name + " born in " + year + " would be " 
-                            + newName + " if she was born in " + newYear);
+                            + newName + " if born in " + newYear);
     }
     
     public void testWhatIsNameInYear() {
-        whatIsNameInYear("Isabella", 2012, 2014, "F");
+        whatIsNameInYear("Owen", 1974, 2014, "M");
     }
     
     public String getName(int year, int rank, String gender) {
         // For every name in the file
         for (CSVRecord rec : getFileParser(year)) {
-            String name = rec.get(0);
             // Get its rank if gender matches param
             if (rec.get(1).equals(gender)) {
+                String name = rec.get(0);
                 int currentRank = getRank(year, name, gender);
                 // Return name if rank matches param
                 if (rank == currentRank) {
@@ -178,8 +173,8 @@ public class AnalyzeBabyNames {
     }
     
     public void testGetName() {
-        int year = 2012;
-        int rank = 2;
+        int year = 1982;
+        int rank = 450;
         String gender = "M";
         String name = getName(year, rank, gender);
         System.out.println("In " + year + ", the " + gender + " at rank " + rank + " was " + name);
@@ -223,12 +218,11 @@ public class AnalyzeBabyNames {
     }
 
     public void testGetRank() {
-        int rank = getRank(2012, "Mason", "M");
-        System.out.println("Rank of 2012, Mason, M: " + rank);  
-        rank = getRank(2012, "Mason", "F");
-        System.out.println("Rank of 2012, Mason, F: " + rank);  
-        rank = getRank(2012, "Sophia", "M");
-        System.out.println("Rank of 2012, Sophia, M: " + rank);  
+        int year = 1971;
+        String name = "Frank";
+        String gender = "M";
+        int rank = getRank(year, name, gender);
+        System.out.println("Rank of " + name + ", " + gender + ", in " + year + ": " + rank);  
     }
 
     public void totalBirths () {
@@ -281,11 +275,11 @@ public class AnalyzeBabyNames {
     
     public CSVParser getFileParser(int year) {
         // If in testing, use below
-        FileResource fr = new FileResource(String.format("data/us_babynames_test/yob%sshort.csv", year));
-        return fr.getCSVParser(false);
+        //FileResource fr = new FileResource(String.format("data/us_babynames_test/yob%sshort.csv", year));
+        //return fr.getCSVParser(false);
         
         // If in production, use below 
-        //FileResource fr = new FileResource(String.format("data/us_babynames_by_year/yob%s.csv", year));
-        //return fr.getCSVParser(false);
+        FileResource fr = new FileResource(String.format("data/us_babynames_by_year/yob%s.csv", year));
+        return fr.getCSVParser(false);
     }
 }
