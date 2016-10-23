@@ -8,7 +8,7 @@ import org.apache.commons.csv.*;
  * getRank() returns the rank of the name in the file for the given gender, where rank 1 is the 
  * name with the largest number of births. If the name is not in the file, then -1 is returned.
  * @param year is an int representing the year of the file to parse
- * @param name is a String representing the name to calculate a rank for
+ * @param name is a String representing the name to determine a rank for
  * @param gender is a String representing the gender the name needs to be
  * 
  * getName() returns the name of the person in the file at this rank, for the given gender, 
@@ -18,10 +18,30 @@ import org.apache.commons.csv.*;
  * @param rank is an int representing the rank of the name to return
  * @param gender is a String representing the gender the name needs to be
  * 
+ * whatIsNameInYear() determines what name would have been named if the given name were born in a 
+ * different year, based on the same popularity.
+ * @param name is a String representing the name to determine a rank for
+ * @param year is an int representing the year the name was born in
+ * @param newYear is an int representing the year to determine the new name
+ * @param gender is a String representing the gender both names need to be
+ * 
  * @author Brienna Herold
  * @version Oct. 22, 2016
  */
 public class AnalyzeBabyNames {
+    public void whatIsNameInYear(String name, int year, int newYear, String gender) {
+        // Determine rank of name in the year they were born
+        int rank = getRank(year, name, gender); 
+        // Determine name born in newYear that is at the same rank and gender
+        String newName = getName(newYear, rank, gender);
+        System.out.println(name + " born in " + year + " would be " 
+                            + newName + " if she was born in " + newYear);
+    }
+    
+    public void testWhatIsNameInYear() {
+        whatIsNameInYear("Isabella", 2012, 2014, "F");
+    }
+    
     public String getName(int year, int rank, String gender) {
         FileResource fr = new FileResource("data/us_babynames_by_year/yob" + year + ".csv");
         // For every name in the file

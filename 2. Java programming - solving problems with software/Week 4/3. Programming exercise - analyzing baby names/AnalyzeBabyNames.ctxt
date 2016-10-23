@@ -1,12 +1,16 @@
 #BlueJ class context
-comment0.params=year\ rank\ gender
-comment0.target=java.lang.String\ getName(int,\ int,\ java.lang.String)
+comment0.params=name\ year\ newYear\ gender
+comment0.target=void\ whatIsNameInYear(java.lang.String,\ int,\ int,\ java.lang.String)
 comment1.params=
-comment1.target=void\ testGetName()
-comment2.params=year\ name\ gender
-comment2.target=int\ getRank(int,\ java.lang.String,\ java.lang.String)
+comment1.target=void\ testWhatIsNameInYear()
+comment2.params=year\ rank\ gender
+comment2.target=java.lang.String\ getName(int,\ int,\ java.lang.String)
 comment3.params=
-comment3.target=void\ testGetRank()
-comment4.params=
-comment4.target=void\ totalBirths()
-numComments=5
+comment3.target=void\ testGetName()
+comment4.params=year\ name\ gender
+comment4.target=int\ getRank(int,\ java.lang.String,\ java.lang.String)
+comment5.params=
+comment5.target=void\ testGetRank()
+comment6.params=
+comment6.target=void\ totalBirths()
+numComments=7
