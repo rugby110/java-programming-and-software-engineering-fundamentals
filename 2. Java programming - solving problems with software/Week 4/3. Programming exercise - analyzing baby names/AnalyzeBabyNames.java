@@ -44,30 +44,29 @@ import java.io.File;
  * @param name is a String representing the name
  * @param gender is a String representing the gender
  * 
- * NOTE: I might want to update this code so that extracting year from file name is more flexible,
- * meaning I can open any file (currently can only open those in us_babynames_by_year
- * 
  * @author Brienna Herold
- * @version Oct. 22, 2016
+ * @version Oct. 23, 2016
  */
 public class AnalyzeBabyNames {
     public int getTotalBirthsRankedHigher(int year, String name, String gender) {
-        // Get rank for given name
-        int rank = getRank(year, name, gender);
+        // Get number of births for given name and gender
+        int numOfBirths = 0;
+        for (CSVRecord rec : getFileParser(year)) {
+            if (rec.get(0).equals(name) && rec.get(1).equals(gender)) {
+                numOfBirths = Integer.parseInt(rec.get(2));
+            }
+        }
+        
+        // Add up number of births greater than that for given name and gender
         int totalBirths = 0;
-        // For every name in file
         for (CSVRecord rec : getFileParser(year)) {
             String currentGender = rec.get(1);
-            // If current gender matches param AND current num of births is lower than for given name, 
-            // get rank for current name
-            if (currentGender.equals(gender)) {
-                System.out.println("testing rank for " + rec.get(0));
-                int currentRank = getRank(year, rec.get(0), gender);
-                // If current rank is higher than given rank
-                if (currentRank < rank) {
-                    // Add number of births to total
-                    totalBirths += Integer.parseInt(rec.get(2));
-                }
+            // If name is not given name AND current gender matches param 
+            // AND current num of births is higher than for given name, 
+            if (!rec.get(0).equals(name) && currentGender.equals(gender) && 
+                Integer.parseInt(rec.get(2)) >= numOfBirths) {
+                // Add number of births to total
+                totalBirths += Integer.parseInt(rec.get(2));
             }
         }
         return totalBirths;
@@ -78,8 +77,8 @@ public class AnalyzeBabyNames {
         String name = "Ethan";
         String gender = "M";
         int totalBirths = getTotalBirthsRankedHigher(year, name, gender);
-        System.out.println("Total number of births of those with the same gender and year who " +
-                            "are ranked higher than " + name + ", " + gender + " + in " + year
+        System.out.println("Total number of births of those with the same gender who " +
+                            "are ranked higher than " + name + ", " + gender + " in " + year
                             + ": " + totalBirths);
     }
     
@@ -211,7 +210,6 @@ public class AnalyzeBabyNames {
                 // cuz a rank may encompass several names with the same number of births
                 if (!nums.contains(currentNumOfBirths)) {
                     rank++;
-                    System.out.println("Rank lowered with " + name + " " + gender);
                 }
                 nums.add(currentNumOfBirths);
             }
@@ -282,7 +280,12 @@ public class AnalyzeBabyNames {
     }
     
     public CSVParser getFileParser(int year) {
-        FileResource fr = new FileResource(String.format("data/us_babynames_by_year/yob%s.csv", year));
+        // If in testing, use below
+        FileResource fr = new FileResource(String.format("data/us_babynames_test/yob%sshort.csv", year));
         return fr.getCSVParser(false);
+        
+        // If in production, use below 
+        //FileResource fr = new FileResource(String.format("data/us_babynames_by_year/yob%s.csv", year));
+        //return fr.getCSVParser(false);
     }
 }
