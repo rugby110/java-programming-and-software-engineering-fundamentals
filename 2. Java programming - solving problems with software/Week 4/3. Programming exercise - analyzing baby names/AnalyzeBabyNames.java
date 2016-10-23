@@ -36,6 +36,40 @@ import java.io.File;
  * @version Oct. 22, 2016
  */
 public class AnalyzeBabyNames {
+    public double getAverageRank(String name, String gender) {
+        // Allow user to select a range of files
+        DirectoryResource dir = new DirectoryResource();
+        double totalRank = 0.0;
+        int count = 0;
+        for (File f : dir.selectedFiles()) {
+            // Extract current year from file name
+            int currentYear = Integer.parseInt(f.getName().substring(3,7));
+            // Determine rank of name in current year
+            int currentRank = getRank(currentYear, name, gender);
+            // Add rank to total and increment count
+            totalRank += currentRank;
+            count++;
+        }
+        // Return calculated average rank
+        if (totalRank == 0) {
+            return -1;
+        }
+        double average = totalRank/count;
+        return average;
+    }
+    
+    public void testGetAverageRank() {
+        String name = "Mason";
+        String gender = "M";
+        double avg = getAverageRank(name, gender);
+        System.out.println("Average rank of " + name + ", " + gender + ":" + avg);
+        
+        name = "Jason";
+        gender = "M";
+        avg = getAverageRank(name, gender);
+        System.out.println("Average rank of " + name + ", " + gender + ":" + avg);
+    }
+    
     public int yearOfHighestRank(String name, String gender) {
         // Allow user to select a range of files
         DirectoryResource dir = new DirectoryResource();
