@@ -1,5 +1,6 @@
 import edu.duke.*;
 import org.apache.commons.csv.*;
+import java.io.File;
 /**
  * totalBirths() prints the number of unique boy names, the number of unique girl names, the total
  * number of names, total number of births, total number of girl births, and total number of boy 
@@ -25,10 +26,48 @@ import org.apache.commons.csv.*;
  * @param newYear is an int representing the year to determine the new name
  * @param gender is a String representing the gender both names need to be
  * 
+ * yearOfHighestRank() selects a range of files to process and returns an integer, the year with 
+ * the highest rank for the name and gender. If the name and gender are not in any of the selected 
+ * files, it returns -1.
+ * @param name is a String representing the name
+ * @param gender is a String representing the gender
+ * 
  * @author Brienna Herold
  * @version Oct. 22, 2016
  */
 public class AnalyzeBabyNames {
+    public int yearOfHighestRank(String name, String gender) {
+        // Allow user to select a range of files
+        DirectoryResource dir = new DirectoryResource();
+        int year = 0;
+        int rank = 0;
+        // For every file the user selected
+        for (File f : dir.selectedFiles()) {
+            // Extract current year from file name
+            int currentYear = Integer.parseInt(f.getName().substring(3,7));
+            // Determine rank of name in current year
+            int currentRank = getRank(currentYear, name, gender);
+            // If on first file, or if current rank is higher than rank, update rank and year
+            if (rank == 0 || currentRank < rank) {
+                rank = currentRank;
+                year = currentYear;
+            } 
+        }
+        
+        if (year == 0) {
+            return -1; 
+        }
+        return year;
+    }
+    
+    public void testYearOfHighestRank() {
+        String name = "Mason";
+        String gender = "M";
+        int year = yearOfHighestRank(name, gender);
+        System.out.println("The year with the highest rank for " + name + " (gender " + gender
+                            + ") is " + year);
+    }
+    
     public void whatIsNameInYear(String name, int year, int newYear, String gender) {
         // Determine rank of name in the year they were born
         int rank = getRank(year, name, gender); 
@@ -105,7 +144,7 @@ public class AnalyzeBabyNames {
         } 
         return rank;
     }
-    
+
     public void testGetRank() {
         int rank = getRank(2012, "Mason", "M");
         System.out.println("Rank of 2012, Mason, M: " + rank);  
