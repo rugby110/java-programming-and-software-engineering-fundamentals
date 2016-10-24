@@ -74,8 +74,8 @@ public class AnalyzeBabyNames {
     
     public void testGetTotalBirthsRankedHigher() {
         int year = 1990;
-        String name = "Drew";
-        String gender = "M";
+        String name = "Emily";
+        String gender = "F";
         int totalBirths = getTotalBirthsRankedHigher(year, name, gender);
         System.out.println("Total number of births of those with the same gender who " +
                             "are ranked higher than " + name + ", " + gender + " in " + year
@@ -141,8 +141,8 @@ public class AnalyzeBabyNames {
     }
     
     public void testYearOfHighestRank() {
-        String name = "Genevieve";
-        String gender = "F";
+        String name = "Mich";
+        String gender = "M";
         int year = yearOfHighestRank(name, gender);
         System.out.println("The year with the highest rank for " + name + " (gender " + gender
                             + ") is " + year);
@@ -190,39 +190,24 @@ public class AnalyzeBabyNames {
     }
     
     public int getRank(int year, String name, String gender) {
-        int births = 0;
-        // For every name in the file
-        for (CSVRecord rec : getFileParser(year)) {
-            // Retrieve and convert number of births if name AND gender match
-            if (rec.get(0).equals(name) && rec.get(1).equals(gender)) {
-                births = Integer.parseInt(rec.get(2));
-                break;
-            }
-        }
-        
         int rank = 1;
-        // For every name in the file
-        for (CSVRecord record : getFileParser(year)) {
-            String currentNumOfBirths = record.get(2);
-            // Retireve and convert current number of births so it's useable in numeric comparison
-            int currentNumOfBirthsInt = Integer.parseInt(currentNumOfBirths);
-            // If name is not own name AND gender matches param AND current number of births is greater than that retrieved
-            if (!record.get(0).equals(name) && record.get(1).equals(gender) && currentNumOfBirthsInt > births) {
+        for (CSVRecord rec : getFileParser(year)) {
+            // Increment rank if gender matches param
+            if (rec.get(1).equals(gender)) {
+                // Return rank if name matches param
+                if (rec.get(0).equals(name)) {
+                    return rank;
+                }
                 rank++;
             }
-        } 
-        
-        // If no name met conditions, return -1, otherwise return rank
-        if (births == 0) {
-            return -1;
         }
-        return rank;
+        return -1;
     }
-
+    
     public void testGetRank() {
-        int year = 1960;
-        String name = "Emily";
-        String gender = "F";
+        int year = 1971;
+        String name = "Frank";
+        String gender = "M";
         int rank = getRank(year, name, gender);
         System.out.println("Rank of " + name + ", " + gender + ", in " + year + ": " + rank);  
     }
