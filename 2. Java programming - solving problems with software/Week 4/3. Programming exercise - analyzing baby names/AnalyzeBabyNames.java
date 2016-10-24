@@ -122,11 +122,16 @@ public class AnalyzeBabyNames {
             int currentYear = Integer.parseInt(f.getName().substring(3,7));
             // Determine rank of name in current year
             int currentRank = getRank(currentYear, name, gender);
-            // If on first file, or if current rank is higher than rank, update rank and year
-            if (rank == 0 || currentRank < rank) {
-                rank = currentRank;
-                year = currentYear;
-            } 
+            System.out.println("Rank in year " + currentYear + ": " + currentRank);
+            // If current rank isn't invalid
+            if (currentRank != -1) {
+                // If on first file or if current rank is higher than saved rank
+                if (rank == 0 || currentRank < rank) {
+                    // Update tracker variables
+                    rank = currentRank;
+                    year = currentYear;
+                } 
+            }
         }
         
         if (year == 0) {
@@ -136,8 +141,8 @@ public class AnalyzeBabyNames {
     }
     
     public void testYearOfHighestRank() {
-        String name = "Mich";
-        String gender = "M";
+        String name = "Genevieve";
+        String gender = "F";
         int year = yearOfHighestRank(name, gender);
         System.out.println("The year with the highest rank for " + name + " (gender " + gender
                             + ") is " + year);
@@ -146,6 +151,7 @@ public class AnalyzeBabyNames {
     public void whatIsNameInYear(String name, int year, int newYear, String gender) {
         // Determine rank of name in the year they were born
         int rank = getRank(year, name, gender); 
+        System.out.println("The rank of Owen is " + rank);
         // Determine name born in newYear that is at the same rank and gender
         String newName = getName(newYear, rank, gender);
         System.out.println(name + " born in " + year + " would be " 
@@ -157,25 +163,28 @@ public class AnalyzeBabyNames {
     }
     
     public String getName(int year, int rank, String gender) {
+        int currentRank = 0;
+        String name = "";
         // For every name in the file
         for (CSVRecord rec : getFileParser(year)) {
             // Get its rank if gender matches param
             if (rec.get(1).equals(gender)) {
-                String name = rec.get(0);
-                int currentRank = getRank(year, name, gender);
-                // Return name if rank matches param
-                if (rank == currentRank) {
+                // Return last name whose rank matches param (file is already in order of rank)
+                if (currentRank == rank) {
                     return name;
                 }
+                name = rec.get(0);
+                currentRank++;
             }
         }
+        
         return "NO NAME";
     }
     
     public void testGetName() {
-        int year = 1982;
-        int rank = 450;
-        String gender = "M";
+        int year = 1980;
+        int rank = 350;
+        String gender = "F";
         String name = getName(year, rank, gender);
         System.out.println("In " + year + ", the " + gender + " at rank " + rank + " was " + name);
     }
@@ -192,21 +201,14 @@ public class AnalyzeBabyNames {
         }
         
         int rank = 1;
-        StorageResource nums = new StorageResource();
         // For every name in the file
         for (CSVRecord record : getFileParser(year)) {
-            // Retrieve current number of births (leaving as String so it's addable to StorageResource)
             String currentNumOfBirths = record.get(2);
-            // Convert current number of births so it's useable in numeric comparison
+            // Retireve and convert current number of births so it's useable in numeric comparison
             int currentNumOfBirthsInt = Integer.parseInt(currentNumOfBirths);
-            // If gender matches param AND current number of births is greater than that retrieved
-            if (record.get(1).equals(gender) && currentNumOfBirthsInt > births) {
-                // Increment rank only if the number of births is not found in nums
-                // cuz a rank may encompass several names with the same number of births
-                if (!nums.contains(currentNumOfBirths)) {
-                    rank++;
-                }
-                nums.add(currentNumOfBirths);
+            // If name is not own name AND gender matches param AND current number of births is greater than that retrieved
+            if (!record.get(0).equals(name) && record.get(1).equals(gender) && currentNumOfBirthsInt > births) {
+                rank++;
             }
         } 
         
@@ -218,9 +220,9 @@ public class AnalyzeBabyNames {
     }
 
     public void testGetRank() {
-        int year = 1971;
-        String name = "Frank";
-        String gender = "M";
+        int year = 1960;
+        String name = "Emily";
+        String gender = "F";
         int rank = getRank(year, name, gender);
         System.out.println("Rank of " + name + ", " + gender + ", in " + year + ": " + rank);  
     }
