@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=ch
+comment0.target=java.lang.Boolean\ isVowel(char)
+comment0.text=\ \n\ Tests\ if\ ch\ is\ a\ vowel\ (one\ of\ 'a',\ 'e',\ 'i',\ 'o',\ or\ 'u'\ or\ \n\ the\ uppercase\ versions).\n\ @parameter\ ch\ is\ a\ String\ representing\ the\ vowel\n\ @returns\ a\ Boolean\n
+comment1.params=
+comment1.target=void\ testIsVowel()
+comment2.params=phrase\ ch
+comment2.target=java.lang.String\ replaceVowels(java.lang.String,\ char)
+comment2.text=\n\ Replaces\ all\ the\ vowels\ (uppercase\ or\ lowercase)\ in\ the\ String\ phrase\ with\ char\ ch.\ \n\ @param\ phrase\ is\ the\ String\ to\ replace\ vowels\ in\n\ @param\ ch\ is\ the\ char\ to\ replace\ the\ vowels\ with\n\ @returns\ the\ String\ phrase\ with\ replaced\ vowels.\ \n
+comment3.params=
+comment3.target=void\ testReplaceVowels()
+comment4.params=phrase\ ch
+comment4.target=java.lang.String\ emphasize(java.lang.String,\ char)
+comment4.text=\n\ Replaces\ char\ ch\ in\ the\ String\ phrase\ with\ '*'\ or\ '+',\ depending\ on\ location\ (not\ index)\ of\ ch\:\n\ \u2018*\u2019\ if\ it\ is\ in\ an\ odd\ number\ location\ in\ the\ string\ (e.g.\ first\ character\ is\ odd)\n\ \u2018+\u2019\ if\ it\ is\ in\ an\ even\ number\ location\ in\ the\ string\ \n\ @param\ phrase\ is\ the\ String\ to\ replace\ characters\ in\n\ @param\ ch\ is\ the\ char\ to\ replace\n\ @returns\ the\ String\ phrase\ with\ replaced\ characters\n
+comment5.params=
+comment5.target=void\ testEmphasize()
+numComments=6
