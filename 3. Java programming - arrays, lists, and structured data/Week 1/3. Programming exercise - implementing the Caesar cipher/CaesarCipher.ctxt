@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.params=input\ key
+comment0.target=java.lang.String\ encrypt(java.lang.String,\ int)
+comment0.text=\n\ Encrypts\ input\ using\ the\ Caesar\ Cipher\ algorithm.\n\ @param\ input\ is\ the\ String\ to\ be\ encrypted\n\ @param\ key\ is\ an\ int\ representing\ the\ number\ of\ positions\ the\ shift\ is\n\ @returns\ encrypted\ String\ input\n
+comment1.params=
+comment1.target=void\ testEncrypt()
+numComments=2
