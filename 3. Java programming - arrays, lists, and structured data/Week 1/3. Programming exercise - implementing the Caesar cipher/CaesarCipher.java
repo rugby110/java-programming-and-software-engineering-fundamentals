@@ -1,6 +1,7 @@
 import edu.duke.*;
 /**
- * Encrypts input using the Caesar Cipher algorithm.
+ * Encrypts input using the Caesar Cipher algorithm, which works with all letters (both uppercase
+ * and lowercase), and encrypts using one or two keys. 
  * 
  * @author Brienna
  * @version Nov. 1, 2016
@@ -50,10 +51,11 @@ public class CaesarCipher {
         System.out.println(input + " encrypted with a key of " 
             + key + " is " + encrypted);
         
-        input = "First Legion";
+        input = "At noon be in the conference room with your hat on for a surprise party. YELL LOUD!";
+        key = 15;
         encrypted = encrypt(input, key);
         System.out.println(input + " encrypted with a key of " 
-            + key + " is " + encrypted);
+            + key + " is \n" + encrypted);
     }
     
     /**
@@ -95,7 +97,7 @@ public class CaesarCipher {
                 char chUpper = Character.toUpperCase(ch);
                 // Find its position in normal abc
                 int pos = abc.indexOf(chUpper);
-                // Find it in one of the encrypted abcs, depending on input position 
+                // Find it in one of the encrypted abcs, depending on index 
                 char replacee;
                 if (i % 2 == 0) {
                     replacee = abcEncrypted1.charAt(pos);
@@ -115,6 +117,7 @@ public class CaesarCipher {
     }
     
     public void testEncryptTwoKeys() {
-        System.out.println(encryptTwoKeys("First Legion", 23, 17));
+        System.out.println(encryptTwoKeys("At noon be in the conference room with your hat" 
+            + " on for a surprise party. YELL LOUD!", 8, 21));
     }
 }
