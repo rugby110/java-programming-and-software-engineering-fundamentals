@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=resource\ counts
+comment0.target=void\ countWordLengths(edu.duke.FileResource,\ int[])
+comment0.text=\n\ Reads\ in\ the\ words\ from\ resource\ and\ counts\ the\ number\ of\ words\ of\ each\ length.\n\ @parameter\ resource\ is\ the\ FileResource\ to\ read\ words\ from\n\ @parameter\ counts\ is\ an\ array\ containing\ counts\ of\ each\ length,\ the\ indexes\ being\ the\ lengths\n
+comment1.params=
+comment1.target=void\ testCountWordLengths()
+comment2.params=values
+comment2.target=int\ indexOfMax(int[])
+comment2.text=\n\ Returns\ the\ index\ position\ of\ the\ largest\ element\ in\ values.\n\ @parameter\ values\ is\ the\ array\ to\ search\n
+numComments=3
