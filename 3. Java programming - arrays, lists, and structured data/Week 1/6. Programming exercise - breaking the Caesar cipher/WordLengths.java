@@ -56,17 +56,15 @@ public class WordLengths {
      * @parameter values is the array to search
      */
     public int indexOfMax(int[] values) {
-        // Set max to the first value
-        int max = values[0]; 
-        
-        // For every value after the first,
+        // Set max to the first index
+        int max = 0; 
+        // For every value after the first value,
         for (int i = 1; i < values.length; i++) {
-            // If the value is larger than max, update max
-            if (max < values[i]) {
-                max = values[i];
+            // If the value is larger than at max index, set max index to current index
+            if (values[max] < values[i]) {
+                max = i;
             }
         }
-        
         return max;
     }
 }

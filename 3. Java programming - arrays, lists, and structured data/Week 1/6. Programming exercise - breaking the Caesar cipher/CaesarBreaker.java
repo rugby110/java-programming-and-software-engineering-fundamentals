@@ -1,6 +1,7 @@
-
+import edu.duke.*;
 /**
- * Write a description of CaesarBreaker here.
+ * Decrypts a message that was encrypted with one or two keys, 
+ * using statistical letter frequencies of English text.
  * 
  * @author Brienna Herold
  * @version Nov. 6, 2016
@@ -132,8 +133,19 @@ public class CaesarBreaker {
     }
     
     public void testDecryptTwoKeys() {
-        String encrypted = "Gwpv c vbuq pvokki yfve iqqu qc bgbgbgbgbgbgbgbgbu";
+        String encrypted = "Akag tjw Xibhr awoa aoee xakex znxag xwko";
         String message = decryptTwoKeys(encrypted);
+        System.out.println("The decrypted message is " + message);
+        
+        // To decrypt a specific example because decryption currently only works based on
+        // the assumption that the most frequent letter is always E
+        CaesarCipher cc = new CaesarCipher();
+        message = cc.encryptTwoKeys(encrypted, 26 - 2, 26 - 20);
+        System.out.println("The decrypted message is " + message);
+        
+        // To decrypt an encrypted file
+        FileResource fr = new FileResource();
+        message = decryptTwoKeys(fr.asString());
         System.out.println("The decrypted message is " + message);
     }
 }
