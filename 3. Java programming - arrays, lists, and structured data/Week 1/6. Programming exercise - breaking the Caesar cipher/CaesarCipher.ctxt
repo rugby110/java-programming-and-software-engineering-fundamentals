@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.params=input\ key
+comment0.target=java.lang.String\ encrypt(java.lang.String,\ int)
+comment0.text=\n\ Encrypts\ input\ using\ the\ Caesar\ Cipher\ algorithm,\ \n\ handling\ both\ uppercase\ and\ lowercase\ letters.\n\ @param\ input\ is\ the\ String\ to\ be\ encrypted\n\ @param\ key\ is\ an\ int\ representing\ the\ number\ of\ positions\ the\ shift\ is\n\ @returns\ encrypted\ String\ input\n
+comment1.params=
+comment1.target=void\ testEncrypt()
+comment2.params=
+comment2.target=void\ testCaesar()
+comment2.text=\n\ Reads\ a\ file\ and\ encrypts\ the\ complete\ file\ using\ the\ Caesar\ Cipher\ algorithm,\ \n\ printing\ the\ encrypted\ message.\n
+comment3.params=input\ key1\ key2
+comment3.target=java.lang.String\ encryptTwoKeys(java.lang.String,\ int,\ int)
+comment3.text=\n\ Encrypts\ input\ using\ the\ Caesar\ algorithm\ with\ two\ keys\ instead\ of\ one.\n\ @parameter\ key1\ is\ an\ int\ representing\ the\ alphabet\ shift\ used\ to\ encrypt\ every\ other\ character,\ \n\ starting\ with\ the\ first\ character\n\ @parameter\ key2\ is\ an\ int\ representing\ the\ alphabet\ shift\ used\ to\ encrypt\ every\ other\ character,\ \n\ starting\ with\ the\ second\ character\n\ @returns\ encrypted\ String\ input\n
+comment4.params=
+comment4.target=void\ testEncryptTwoKeys()
+numComments=5
