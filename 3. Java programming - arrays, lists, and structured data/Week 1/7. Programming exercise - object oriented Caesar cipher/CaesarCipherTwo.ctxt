@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=key1\ key2
+comment0.target=CaesarCipherTwo(int,\ int)
+comment1.params=input
+comment1.target=java.lang.String\ encrypt(java.lang.String)
+comment1.text=\n\ Returns\ a\ String\ that\ is\ the\ input\ encrypted\ using\ the\ two\ shifted\ alphabets.\n
+comment2.params=input
+comment2.target=java.lang.String\ decrypt(java.lang.String)
+comment2.text=\n\ Returns\ a\ String\ that\ is\ decrypted\ using\ the\ same\ keys\ as\ in\ its\ encryption.\n
+numComments=3
