@@ -46,7 +46,6 @@ public class CaesarCipher {
     
     public String decrypt(String input) {
         CaesarCipher cc = new CaesarCipher(26 - mainKey); 
-        String decrypted = cc.encrypt(input);
-        return decrypted;
+        return cc.encrypt(input);
     }
 }

@@ -133,14 +133,14 @@ public class CaesarBreaker {
     }
     
     public void testDecryptTwoKeys() {
-        String encrypted = "Akag tjw Xibhr awoa aoee xakex znxag xwko";
+        String encrypted = "Aal uttx hm aal Qtct Fhljha pl Wbdl. Pvxvxlx!";
         String message = decryptTwoKeys(encrypted);
         System.out.println("The decrypted message is " + message);
         
         // To decrypt a specific example because decryption currently only works based on
         // the assumption that the most frequent letter is always E
         CaesarCipher cc = new CaesarCipher();
-        message = cc.encryptTwoKeys(encrypted, 26 - 2, 26 - 20);
+        message = cc.encryptTwoKeys(encrypted, 26 - 14, 26 - 24);
         System.out.println("The decrypted message is " + message);
         
         // To decrypt an encrypted file

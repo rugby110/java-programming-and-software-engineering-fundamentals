@@ -9,7 +9,7 @@ public class TestCaesarCipherTwo {
      * Creates an array of letter frequencies in parameter String s 
      * and returns the index of the largest letter frequency.
      */
-    public int countLetters(String s) {
+    private int countLetters(String s) {
         int[] freqs = new int[26];
         // For every character in the string
         for (int i = 0; i < s.length(); i++) {
@@ -33,7 +33,7 @@ public class TestCaesarCipherTwo {
      * the corresponding index in the alphabet (e.g. 0 represents the 0th letter, a)
      * @returns the index as an int
      */
-    public int maxIndex(int[] values) {
+    private int maxIndex(int[] values) {
         // Set max to the first index
         int max = 0;
         // For every freq after the first freq,
@@ -50,7 +50,7 @@ public class TestCaesarCipherTwo {
      * Returns a new String that is every other character from message 
      * starting with the start position.
      */
-    public String halfOfString(String message, int start) {
+    private String halfOfString(String message, int start) {
         String halved = "";
         for (int i = start; i < message.length(); i += 2) {
             halved += message.charAt(i);
@@ -64,9 +64,9 @@ public class TestCaesarCipherTwo {
      */
     private int getKey(String s) {
         // Calculate the index of the encrypted letter in String s that is most likely to be E
-        int maxIndex = countLetters(s);
+        int index = countLetters(s);
         // Calculate the shift between indexes of encrypted letter and E in the alphabet
-        int key = maxIndex - alphabet.indexOf('E');
+        int key = index - alphabet.indexOf('E');
         // Return key
         if (key > 0) {
             return key;
@@ -78,6 +78,7 @@ public class TestCaesarCipherTwo {
     public void breakCaesarCipherTwo(String input) {
         String halved1 = halfOfString(input, 0);
         String halved2 = halfOfString(input, 1);
+        
         int key1 = getKey(halved1);
         int key2 = getKey(halved2);
         
@@ -89,9 +90,11 @@ public class TestCaesarCipherTwo {
     }
     
     public void simpleTests() {
-        FileResource fr = new FileResource();
-        CaesarCipherTwo cc2 = new CaesarCipherTwo(17, 3);
-        String encryptedFile = cc2.encrypt(fr.asString());
+        //FileResource fr = new FileResource();
+        //String message = fr.asString();
+        String message = "Can you imagine life WITHOUT the internet AND computers in your pocket?";
+        CaesarCipherTwo cc2 = new CaesarCipherTwo(21, 8);
+        String encryptedFile = cc2.encrypt(message);
         System.out.println("The encrypted file: ");
         System.out.println(encryptedFile);
         

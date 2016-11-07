@@ -9,7 +9,7 @@ public class TestCaesarCipher {
      * Creates an array of letter frequencies in parameter String s 
      * and returns the index of the largest letter frequency.
      */
-    public int countLetters(String s) {
+    private int countLetters(String s) {
         int[] freqs = new int[26];
         // For every character in the string
         for (int i = 0; i < s.length(); i++) {
@@ -33,7 +33,7 @@ public class TestCaesarCipher {
      * the corresponding index in the alphabet (e.g. 0 represents the 0th letter, a)
      * @returns the index as an int
      */
-    public int maxIndex(int[] values) {
+    private int maxIndex(int[] values) {
         // Set max to the first index
         int max = 0;
         // For every freq after the first freq,
@@ -51,11 +51,12 @@ public class TestCaesarCipher {
      * the most common letter in s, assumed to be E, and E. 
      */ 
     public void breakCaesarCipher(String input) {
-        // Calculate the index of the encrypted letter in String s that is most likely to be E
-        int maxIndex = countLetters(input);
-        // Calculate the shift between indexes of encrypted letter and E in the alphabet
-        int shift = maxIndex - alphabet.indexOf('E');
+        // Calculate the frequency of all letters using countLetters and 
+        // compute the index of the largest frequency using maxIndex
+        int index = countLetters(input);
+        int shift = index - alphabet.indexOf('E');
         
+        // Use the shift to determine the key
         int key;
         if (shift > 0) {
             key = shift;
@@ -63,6 +64,7 @@ public class TestCaesarCipher {
             key = 26 + shift;
         }
         
+        // Create a CaesarCipher object with that key and call decrypt on input
         CaesarCipher cc = new CaesarCipher(key);
         String decrypted = cc.decrypt(input);
         
@@ -71,18 +73,20 @@ public class TestCaesarCipher {
     }
     
     public void simpleTests() {
-        FileResource fr = new FileResource();
-        CaesarCipher cc = new CaesarCipher(18);
-        String encryptedFile = cc.encrypt(fr.asString());
-        System.out.println("The encrypted file: ");
-        System.out.println(encryptedFile);
+        //FileResource fr = new FileResource();
+        //String message = fr.asString();
+        String message = "Can you imagine life WITHOUT the internet AND computers in your pocket?";
+        CaesarCipher cc = new CaesarCipher(15);
+        String encrypted = cc.encrypt(message);
+        System.out.println("The encrypted message: ");
+        System.out.println(encrypted);
         
         // Decrypt file using the same key it was encrypted with
-        String decryptedFile = cc.decrypt(encryptedFile);
-        System.out.println("The decrypted file: ");
-        System.out.println(decryptedFile);
+        String decrypted = cc.decrypt(encrypted);
+        System.out.println("The decrypted message: ");
+        System.out.println(decrypted);
         
         // Decrypt file by determining the key it was encrypted with
-        breakCaesarCipher(encryptedFile);
+        breakCaesarCipher(encrypted);
     }
 }
