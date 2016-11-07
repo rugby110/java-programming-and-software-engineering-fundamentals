@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.params=s
+comment0.target=int\ countLetters(java.lang.String)
+comment0.text=\n\ Creates\ an\ array\ of\ letter\ frequencies\ in\ parameter\ String\ s\ \n\ and\ returns\ the\ index\ of\ the\ largest\ letter\ frequency.\n
+comment1.params=values
+comment1.target=int\ maxIndex(int[])
+comment1.text=\n\ Calculates\ the\ index\ of\ the\ largest\ letter\ frequency\ from\ an\ array\ of\ all\ letter\ frequencies.\n\ @parameter\ freqs\ is\ an\ array\ containing\ letter\ frequencies,\ each\ index\ representing\ \n\ the\ corresponding\ index\ in\ the\ alphabet\ (e.g.\ 0\ represents\ the\ 0th\ letter,\ a)\n\ @returns\ the\ index\ as\ an\ int\n
+comment2.params=input
+comment2.target=void\ breakCaesarCipher(java.lang.String)
+comment2.text=\n\ Decrypts\ and\ prints\ String\ input\ after\ calculating\ the\ key,\ based\ on\ the\ shift\ between\ \n\ the\ most\ common\ letter\ in\ s,\ assumed\ to\ be\ E,\ and\ E.\ \n
+comment3.params=
+comment3.target=void\ simpleTests()
+numComments=4
