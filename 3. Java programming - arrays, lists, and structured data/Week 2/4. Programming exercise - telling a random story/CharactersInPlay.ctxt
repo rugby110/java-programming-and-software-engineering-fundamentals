@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.params=
+comment0.target=CharactersInPlay()
+comment1.params=person
+comment1.target=void\ update(java.lang.String)
+comment1.text=\ \n\ Updates\ the\ two\ ArrayLists,\ adding\ the\ character\u2019s\ name\ if\ it\ is\ not\ already\ there,\ \n\ and\ counts\ this\ line\ as\ one\ speaking\ part\ for\ this\ person.\n\ @param\ person\ is\ a\ String\ representing\ the\ character's\ name\n
+comment2.params=
+comment2.target=void\ findAllCharacters()
+comment2.text=\n\ Opens\ a\ file,\ and\ reads\ the\ file\ line-by-line.\ For\ each\ line,\ if\ there\ is\ a\ period\ \n\ on\ the\ line,\ extract\ the\ possible\ name\ of\ the\ speaking\ part,\ and\ call\ update\ to\ count\ \n\ it\ as\ an\ occurrence\ for\ this\ person.\n
+comment3.params=
+comment3.target=void\ tester()
+comment4.params=num1\ num2
+comment4.target=void\ charactersWithNumParts(int,\ int)
+comment4.text=\n\ Prints\ out\ the\ names\ of\ all\ those\ characters\ that\ have\ exactly\ number\ speaking\ parts,\ \n\ where\ number\ is\ greater\ than\ or\ equal\ to\ num1\ and\ less\ than\ or\ equal\ to\ num2.\ Assume\ that\n\ num1\ is\ less\ than\ or\ equal\ to\ num2.\ \n\ @parameter\ num1\ is\ an\ int\ representing\ the\ minimum\ of\ speaking\ parts\n\ @parameter\ num2\ is\ an\ int\ representing\ the\ maximum\ of\ speaking\ parts\n
+numComments=5
