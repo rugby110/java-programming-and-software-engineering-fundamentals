@@ -1,0 +1,12 @@
+#BlueJ class context
+comment0.params=
+comment0.target=WordFrequencies()
+comment0.text=\n\ Initializes\ the\ private\ variables.\n
+comment1.params=
+comment1.target=void\ findUnique()
+comment2.params=
+comment2.target=int\ findIndexOfMax()
+comment2.text=\n\ Returns\ an\ int\ that\ is\ the\ index\ location\ of\ the\ largest\ value\ in\ myFreqs.\ \n\ If\ there\ is\ a\ tie,\ then\ return\ the\ first\ such\ value.\n
+comment3.params=
+comment3.target=void\ tester()
+numComments=4
