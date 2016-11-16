@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=
+comment0.target=CodonCount()
+comment0.text=\ \n\ Initializes\ any\ private\ variables.\n
+comment1.params=start\ dna
+comment1.target=void\ buildCodonMap(int,\ java.lang.String)
+comment1.text=\n\ Builds\ a\ new\ map\ of\ codons\ mapped\ to\ their\ counts\ from\ the\ string\ dna\ \n\ with\ the\ specified\ reading\ frame.\n\ @parameter\ start\ is\ an\ integer\ (a\ value\ of\ 0,\ 1,\ or\ 2)\ representing\ the\ \n\ position\ the\ reading\ frame\ starts\ at.\n\ @parameter\ dna\ is\ the\ dna\ string.\ \n
+comment2.params=
+comment2.target=java.lang.String\ getMostCommonCodon()
+comment2.text=\n\ Returns\ a\ String,\ the\ codon\ in\ a\ reading\ frame\ that\ has\ the\ largest\ count.\ \n\ If\ there\ are\ several\ such\ codons,\ return\ any\ one\ of\ them.\n
+comment3.params=start\ end
+comment3.target=void\ printCodonCounts(int,\ int)
+comment3.text=\n\ Prints\ all\ the\ codons\ in\ the\ HashMap\ along\ with\ their\ counts\ if\ their\ count\ is\ \n\ between\ start\ and\ end,\ inclusive.\n
+comment4.params=
+comment4.target=void\ tester()
+numComments=5
