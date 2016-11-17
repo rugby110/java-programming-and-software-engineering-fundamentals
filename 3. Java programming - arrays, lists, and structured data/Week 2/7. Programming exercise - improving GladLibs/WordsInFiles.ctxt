@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.params=
+comment0.target=WordsInFiles()
+comment0.text=\n\ Initializes\ private\ variables.\n
+comment1.params=f
+comment1.target=void\ addsWordsFromFile(java.io.File)
+comment1.text=\n\ Adds\ all\ words\ from\ File\ f\ into\ map.\n
+comment2.params=
+comment2.target=void\ buildWordFileMap()
+comment2.text=\n\ Puts\ all\ of\ words\ from\ a\ group\ of\ user-selected\ files\ into\ the\ map\ by\ calling\ \n\ the\ method\ addsWordsFromFile.\n
+comment3.params=
+comment3.target=int\ maxNumber()
+comment3.text=\n\ Returns\ the\ maximum\ number\ of\ files\ any\ word\ appears\ in,\ \n\ considering\ all\ words\ from\ a\ group\ of\ files.\n
+comment4.params=number
+comment4.target=java.util.ArrayList\ wordsInNumFiles(int)
+comment4.text=\n\ Returns\ an\ ArrayList\ of\ words\ that\ appear\ in\ exactly\ number\ files.\n
+comment5.params=word
+comment5.target=void\ printFilesln(java.lang.String)
+comment5.text=\n\ Prints\ the\ names\ of\ the\ files\ this\ word\ appears\ in,\ one\ filename\ per\ line.\n
+comment6.params=
+comment6.target=void\ tester()
+numComments=7
