@@ -36,8 +36,8 @@ public class WordsInFiles {
                 }
             } else {
                 ArrayList<String> arr = new ArrayList<String>();
+                arr.add(filename);
                 map.put(word, arr);
-                addsWordsFromFile(f);
             }
         }
     }
@@ -111,6 +111,11 @@ public class WordsInFiles {
             printFilesln(word);
         }
         // Print out the complete map
-        System.out.println(map.toString());
+        //System.out.println(map.toString());
+        
+        // To answer quiz 
+        System.out.println("To answer the quiz: ");
+        words = wordsInNumFiles(5);
+        System.out.println(words.size());
     }
 }
