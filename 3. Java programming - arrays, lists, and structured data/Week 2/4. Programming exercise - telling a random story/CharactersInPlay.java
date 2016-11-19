@@ -60,7 +60,7 @@ public class CharactersInPlay {
         for (int k = 0; k < characters.size(); k++) {
             int count = counts.get(k);
             // NOTE: A main character is one who has greater than 2 speaking parts
-            if (count > 50) {
+            if (count > 2) {
                 System.out.println(characters.get(k) + " has " + count + " speaking parts");
             }    
         }

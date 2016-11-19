@@ -39,8 +39,7 @@ public class GladLib {
         
         for (int i = 0; i < categories.length; i++) {
             String category = categories[i];
-            ArrayList<String> words = new ArrayList<String>();
-            words = readIt(source+"/"+category+".txt");
+            ArrayList<String> words = readIt(source+"/"+category+".txt");
             myMap.put(category, words);
         }
     }

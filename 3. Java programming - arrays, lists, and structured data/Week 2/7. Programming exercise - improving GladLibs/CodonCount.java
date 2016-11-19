@@ -37,6 +37,8 @@ public class CodonCount {
                 map.put(codon, 1);
             }
         }
+        
+        System.out.println(map.toString());
     }
     
     /**
@@ -64,7 +66,7 @@ public class CodonCount {
         for (String codon : map.keySet()) {
             int count = map.get(codon);
             if (count >= start && count <= end) {
-                System.out.println(codon + " " + count); 
+                System.out.println(codon + " " + count);
             }
         }
     }
@@ -72,6 +74,7 @@ public class CodonCount {
     public void tester() {
         FileResource fr = new FileResource();
         String dna = fr.asString().toUpperCase().trim();
+        System.out.println(dna);
         for (int start = 0; start <= 2; start++) {
             buildCodonMap(start, dna);
             System.out.println("Reading frame starting with " + start + " results in " + map.size() + 
@@ -80,7 +83,7 @@ public class CodonCount {
             System.out.println("and the most common codon is " + mostCommonCodon +
                 " with count " + map.get(mostCommonCodon));
             System.out.println("Counts of codons between 1 and 5 inclusive are: ");
-            printCodonCounts(1, 5);
+            printCodonCounts(6, 7);
             System.out.println();
         }
     }

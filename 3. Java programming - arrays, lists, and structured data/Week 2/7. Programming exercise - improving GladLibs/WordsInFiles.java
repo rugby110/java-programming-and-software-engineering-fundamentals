@@ -107,15 +107,19 @@ public class WordsInFiles {
         ArrayList<String> words = wordsInNumFiles(max);
         for (int i = 0; i < words.size(); i++) {
             String word = words.get(i);
-            System.out.println("The word " + word + " appears in the following files: ");
-            printFilesln(word);
+            //System.out.println("The word " + word + " appears in the following files: ");
+            //printFilesln(word);
+            
         }
         // Print out the complete map
         //System.out.println(map.toString());
         
         // To answer quiz 
+        System.out.println("Count of words that appear in " + max + " files: " + words.size());
         System.out.println("To answer the quiz: ");
-        words = wordsInNumFiles(5);
-        System.out.println(words.size());
+        words = wordsInNumFiles(4);
+        System.out.println("Words in 4 files: " + words.size());
+        System.out.println("sea: ");
+        printFilesln("sea");
     }
 }
