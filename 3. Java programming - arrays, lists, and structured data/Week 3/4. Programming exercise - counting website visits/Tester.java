@@ -22,7 +22,7 @@ public class Tester
     public void testLogAnalyzer() {
         // Create a LogAnalyzer object
         LogAnalyzer analyzer = new LogAnalyzer();
-        // Read the data file short-test_log
+        // Read the data file
         analyzer.readFile("short-test_log");
         // Print all the web logs
         analyzer.printAll();
@@ -31,7 +31,7 @@ public class Tester
     public void testUniqueIPs() {
         // Create a LogAnalyzer object
         LogAnalyzer analyzer = new LogAnalyzer();
-        // Read the data file short-test_log
+        // Read the data file
         analyzer.readFile("short-test_log");
         // Test the method countUniqueIPs
         int numOfUniqueIPs = analyzer.countUniqueIPs();
@@ -51,7 +51,7 @@ public class Tester
     public void testUniqueIPVistsOnDay() {
         // Create a LogAnalyzer object
         LogAnalyzer analyzer = new LogAnalyzer();
-        // Read the data file weblog-short_log
+        // Read the data file
         analyzer.readFile("weblog1_log");
         // Test the method uniqueIPVisitsOnDay
         String someday = "Mar 24";
@@ -62,7 +62,7 @@ public class Tester
     public void testUniqueIPsInRange() {
         // Create a LogAnalyzer object
         LogAnalyzer analyzer = new LogAnalyzer();
-        // Read the data file short-test_log
+        // Read the data file
         analyzer.readFile("weblog1_log");
         // Test the method countUniqueIPsInRange
         int low = 200;
@@ -74,5 +74,79 @@ public class Tester
         high = 399;
         num = analyzer.countUniqueIPsInRange(low, high);
         System.out.println("Number of unique IPs in range " + low + "-" + high + ": " + num);
+    }
+    
+    public void testCountVisitsPerIP() {
+        // Create a LogAnalyzer object
+        LogAnalyzer analyzer = new LogAnalyzer();
+        // Read the data file
+        analyzer.readFile("short-test_log");
+        // Test the method countVisitsPerIP
+        HashMap<String, Integer> visits = analyzer.countVisitsPerIP();
+        System.out.println(visits);
+    }
+    
+    public void testMostNumberVisitsByIP() {
+        // Create a LogAnalyzer object
+        LogAnalyzer analyzer = new LogAnalyzer();
+        // Read the data file
+        analyzer.readFile("weblog3-short_log");
+        // Test the method mostNumberVisitsByIP
+        HashMap<String, Integer> visits = analyzer.countVisitsPerIP();
+        int max = analyzer.mostNumberVisitsByIP(visits);
+        System.out.println("Maximum number of visits to this website by a single IP address: " + max);
+    }
+    
+    public void testIPsMostVisits() {
+        // Create a LogAnalyzer object
+        LogAnalyzer analyzer = new LogAnalyzer();
+        // Read the data file
+        analyzer.readFile("weblog3-short_log");
+        // Test the method iPsMostVisits
+        HashMap<String, Integer> visits = analyzer.countVisitsPerIP();
+        ArrayList maxIPs = analyzer.iPsMostVisits(visits);
+        System.out.println(maxIPs);
+    }
+    
+    public void testIPsForDays() {
+        // Create a LogAnalyzer object
+        LogAnalyzer analyzer = new LogAnalyzer();
+        // Read the data file
+        analyzer.readFile("weblog3-short_log");
+        // Test the method iPsForDays
+        String date = "Sep 14";
+        HashMap<String, ArrayList<String>> dateMap = analyzer.iPsForDays();
+        System.out.println(date + " maps to " + dateMap.get(date).size() + " IP addresses");
+        
+        date = "Sep 21";
+        dateMap = analyzer.iPsForDays();
+        System.out.println(date + " maps to " + dateMap.get(date).size() + " IP addresses");
+        
+        date = "Sep 30";
+        dateMap = analyzer.iPsForDays();
+        System.out.println(date + " maps to " + dateMap.get(date).size() + " IP addresses");
+    }
+    
+    public void testDayWithMostIPVisits() {
+        // Create a LogAnalyzer object
+        LogAnalyzer analyzer = new LogAnalyzer();
+        // Read the data file
+        analyzer.readFile("weblog3-short_log");
+        // Test the method dayWithMostIPVisits
+        HashMap<String, ArrayList<String>> dateMap = analyzer.iPsForDays();
+        String day = analyzer.dayWithMostIPVisits(dateMap);
+        System.out.println("The day with the most IP visits: " + day); 
+    }
+    
+    public void testIPsWithMostVisitsOnDay() {
+        // Create a LogAnalyzer object
+        LogAnalyzer analyzer = new LogAnalyzer();
+        // Read the data file
+        analyzer.readFile("weblog3-short_log");
+        // Test the method iPsWithMostVisitsOnDay
+        HashMap<String, ArrayList<String>> dateMap = analyzer.iPsForDays();
+        String date = "Sep 30";
+        ArrayList<String> ips = analyzer.iPsWithMostVisitsOnDay(dateMap, date);
+        System.out.println(ips);
     }
 }

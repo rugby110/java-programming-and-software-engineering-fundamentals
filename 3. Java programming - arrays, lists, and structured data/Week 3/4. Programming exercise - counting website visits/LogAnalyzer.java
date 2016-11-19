@@ -101,4 +101,142 @@ public class LogAnalyzer
          }
          return uniques.size();
      }
+     
+     /**
+      * Maps an IP address to the number of times this IP address visited the website.
+      * @returns a HashMap<String, Integer>
+      */
+     public HashMap<String, Integer> countVisitsPerIP() {
+         HashMap<String, Integer> visits = new HashMap<String, Integer>();
+         // For every record
+         for (LogEntry le : records) {
+             // Obtain ip address
+             String ip = le.getIpAddress();
+             // If address exists in map, add 1 to its visits
+             // Otherwise add address and a value of 1 visit
+             if (visits.containsKey(ip)) {
+                 int num = visits.get(ip);
+                 visits.put(ip, num + 1);
+             } else {
+                 visits.put(ip, 1);
+             }
+         }
+         return visits;
+     }
+     
+     /**
+      * Returns the maximum number of visits to this website by a single IP address.
+      * @parameter visits is a HashMap<String, Integer> that maps an IP address 
+      * to the number of times that IP address appears in the web log file
+      */
+     public int mostNumberVisitsByIP(HashMap<String, Integer> visits) {
+         int max = 0;
+         // For every ip address
+         for (String ip : visits.keySet()) {
+             // Obtain its number of visits
+             int curr = visits.get(ip);
+             if (curr > max) {
+                 max = curr; 
+             }
+         }
+         return max;
+     }
+     
+     /**
+      * Returns an ArrayList of Strings of IP addresses that all have the maximum number of 
+      * visits to this website.
+      * @parameter visits is a HashMap<String, Integer> that maps an IP address 
+      * to the number of times that IP address appears in the web log file
+      */
+     public ArrayList<String> iPsMostVisits(HashMap<String, Integer> visits) {
+         ArrayList<String> maxIPs = new ArrayList<String>();
+         int max = mostNumberVisitsByIP(visits);
+         for (String ip : visits.keySet()) {
+             // If current IP address' number of visits equals max
+             if (visits.get(ip) == max) {
+                 // Add IP to maxIPs
+                 maxIPs.add(ip);
+             }
+         }
+         return maxIPs;
+     }
+     
+     /**
+      * Returns a HashMap<String, ArrayList<String>> that uses records and maps days from web logs 
+      * to an ArrayList of IP addresses that occurred on that day (including repeated IP addresses).
+      * A day is in the format “MMM DD” where MMM is the first three characters of the month name
+      * with the first letter capital and the others in lowercase, and DD is the day in two digits 
+      * (examples are “Dec 05” and “Apr 22”).
+      */
+     public HashMap<String, ArrayList<String>> iPsForDays() {
+         HashMap<String, ArrayList<String>> dateMap = new HashMap<String, ArrayList<String>>();
+         // For every record
+         for (LogEntry le : records) {
+             // Obtain ip and date 
+             String ip = le.getIpAddress();
+             String d = le.getAccessTime().toString().substring(4,10);
+             // If dateMap doesn't contain date yet
+             if (!dateMap.containsKey(d)) {
+                 // Create ArrayList<String> and add IP address
+                 ArrayList<String> ips = new ArrayList<String>();
+                 ips.add(ip);
+                 // Update dateMap
+                 dateMap.put(d, ips);
+             } else {
+                 // Obtain ArrayList of IP addresses
+                 ArrayList<String> ips = dateMap.get(d);
+                 ips.add(ip);
+                 dateMap.put(d, ips);
+             }
+         }
+         return dateMap;
+     }
+     
+     /**
+      * Determines the day that has the most IP address visits.
+      * @parameter dateMap is a HashMap<String, ArrayList<String>> that maps days from web logs 
+      * to an ArrayList of IP addresses that occurred on that day
+      * @returns a String representing a day in the format “MMM DD” where MMM is the first three 
+      * characters of the month name with the first letter capital and the others in lowercase, 
+      * and DD is the day in two digits (examples are “Dec 05” and “Apr 22”)
+      */
+     public String dayWithMostIPVisits(HashMap<String, ArrayList<String>> dateMap) {
+         String maxDay = "";
+         // For each day in dateMap
+         for (String date : dateMap.keySet()) {
+             // Retrieve its ArrayList of IP addresses
+             ArrayList<String> ips = dateMap.get(date);
+             // If on first day or if current day has more visits than on maxDay
+             if (maxDay.equals("") || ips.size() > dateMap.get(maxDay).size()) {
+                 maxDay = date;
+             }
+         }
+         return maxDay;
+     }
+     
+     /**
+      * Returns an ArrayList<String> of IP addresses that had the most accesses on the given day.
+      * @parameter dateMap is a HashMap<String, ArrayList<String>> that maps days from web logs 
+      * to an ArrayList of IP addresses that occurred on that day
+      * @parameter date is a String representing a day in the format “MMM DD” where MMM is the first three 
+      * characters of the month name with the first letter capital and the others in lowercase, 
+      * and DD is the day in two digits (examples are “Dec 05” and “Apr 22”)
+      */
+     public ArrayList<String> iPsWithMostVisitsOnDay(HashMap<String, ArrayList<String>> dateMap, String date) {
+         // Get IP addresses for given date
+         ArrayList<String> ips = dateMap.get(date);
+         
+         // Map each IP address to the number of times this IP address visited the website on given date
+         HashMap<String, Integer> visits = new HashMap<String, Integer>();
+         for (String ip : ips) {
+             if (visits.containsKey(ip)) {
+                 int num = visits.get(ip);
+                 visits.put(ip, num + 1);
+             } else {
+                 visits.put(ip, 1);
+             }
+         }
+         
+         return iPsMostVisits(visits);
+     }
 }
