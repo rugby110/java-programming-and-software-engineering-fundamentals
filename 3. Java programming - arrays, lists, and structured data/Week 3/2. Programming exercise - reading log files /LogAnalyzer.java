@@ -29,8 +29,7 @@ public class LogAnalyzer
          // For each line in file
          for (String line : fr.lines()) {
              // Create a new LogEntry object by parsing the file with WebLogParser
-             WebLogParser parser = new WebLogParser();
-             LogEntry le = parser.parseEntry(line);
+             LogEntry le = WebLogParser.parseEntry(line);
              // Store LogEntry object in the records ArrayList
              records.add(le);
          }
