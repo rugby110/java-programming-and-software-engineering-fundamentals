@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.params=message\ whichSlice\ totalSlices
+comment0.target=java.lang.String\ sliceString(java.lang.String,\ int,\ int)
+comment0.text=\n\ Returns\ a\ String\ consisting\ of\ every\ totalSlices-th\ character\ from\ message,\ \n\ starting\ at\ the\ whichSlice-th\ character.\n\ @parameter\ message\ -\ a\ String\ representing\ the\ encrypted\ message\n\ @parameter\ whichSlice\ -\ an\ int\ indicating\ the\ index\ the\ slice\ should\ start\ from\n\ @parameter\ totalSlices\ -\ an\ int\ indicating\ the\ length\ of\ the\ key\n
+comment1.params=
+comment1.target=void\ testSliceString()
+comment2.params=encrypted\ klength\ mostCommon
+comment2.target=int[]\ tryKeyLength(java.lang.String,\ int,\ char)
+comment2.text=\n\ Finds\ the\ shift\ for\ each\ index\ in\ the\ key,\ fills\ in\ the\ key\ (which\ is\ an\ array\ of\ \n\ integers)\ and\ return\ it.\ Makes\ use\ of\ the\ CaesarCracker\ class,\ as\ well\ as\ the\ \n\ sliceString\ method.\ \n\ @parameter\ encrypted\ -\ a\ String\ representing\ the\ encrypted\ message\n\ @parameter\ klength\ -\ an\ int\ representing\ the\ key\ length\ \n\ @parameter\ mostCommon\ -\ an\ int\ representing\ the\ most\ common\ character\ in\ the\ language\ \n\ of\ the\ message\n
+comment3.params=
+comment3.target=void\ testTryKeyLength()
+comment4.params=
+comment4.target=void\ breakVigenere()
+comment4.text=\n\ Put\ everything\ together,\ so\ that\ you\ can\ create\ a\ new\ VigenereBreaker\ in\ BlueJ,\ \n\ call\ this\ method\ on\ it,\ and\ crack\ the\ cipher\ used\ on\ a\ message.\n
+numComments=5
