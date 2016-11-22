@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=key
+comment0.target=VigenereCipher(int[])
+comment1.params=input
+comment1.target=java.lang.String\ encrypt(java.lang.String)
+comment2.params=input
+comment2.target=java.lang.String\ decrypt(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ toString()
+numComments=4
