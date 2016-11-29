@@ -87,7 +87,7 @@ public class VigenereBreaker {
             System.out.println("Just added " + languageName);
         }
         
-        FileResource fr = new FileResource("athens_keyflute.txt");
+        FileResource fr = new FileResource("secretmessage3.txt");
         String message = fr.asString();
         breakForAllLangs(message, languages);
     }
@@ -155,6 +155,7 @@ public class VigenereBreaker {
                 finalKeyLength = keylength;
             }
         }
+        
         System.out.println("Message contains " + maxRealWords + " valid words");
         System.out.println("Message decoded with keylength of " + finalKeyLength);
         return decryptionWithMostRealWords;
@@ -217,7 +218,7 @@ public class VigenereBreaker {
             System.out.println("Analyzing the text with " + language);
             // Call breakForLanguage with the message and the dictionary
             String decrypted = breakForLanguage(encrypted, dictionary);
-            // Print the decrypted message 
+            // Print the decrypted message
             System.out.println(decrypted);
         }
     }
