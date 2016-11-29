@@ -8,8 +8,7 @@ public class CaesarCipher {
     public CaesarCipher(int key) {
         theKey = key;
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        shiftedAlphabet = alphabet.substring(key) +
-                            alphabet.substring(0,key);
+        shiftedAlphabet = alphabet.substring(key) + alphabet.substring(0,key);
         alphabet = alphabet + alphabet.toLowerCase();
         shiftedAlphabet = shiftedAlphabet + shiftedAlphabet.toLowerCase();
     }

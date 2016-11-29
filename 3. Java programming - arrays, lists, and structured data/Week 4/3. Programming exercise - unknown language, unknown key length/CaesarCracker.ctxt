@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.params=
+comment0.target=CaesarCracker()
+comment1.params=c
+comment1.target=CaesarCracker(char)
+comment2.params=message
+comment2.target=int[]\ countLetters(java.lang.String)
+comment3.params=vals
+comment3.target=int\ maxIndex(int[])
+comment4.params=encrypted
+comment4.target=int\ getKey(java.lang.String)
+comment5.params=encrypted
+comment5.target=java.lang.String\ decrypt(java.lang.String)
+numComments=6
