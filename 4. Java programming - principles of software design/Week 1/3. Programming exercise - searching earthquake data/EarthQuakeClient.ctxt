@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=
+comment0.target=EarthQuakeClient()
+comment1.params=quakeData\ magMin
+comment1.target=java.util.ArrayList\ filterByMagnitude(java.util.ArrayList,\ double)
+comment1.text=\n\ \ Returns\ an\ ArrayList\ of\ type\ QuakeEntry\ of\ all\ the\ earthquakes\ from\ quakeData\ \n\ \ that\ have\ a\ magnitude\ larger\ than\ magMin.\n
+comment2.params=quakeData\ distMax\ from
+comment2.target=java.util.ArrayList\ filterByDistanceFrom(java.util.ArrayList,\ double,\ Location)
+comment2.text=\n\ Returns\ all\ the\ earthquakes\ from\ quakeData\ that\ are\ less\ than\ distMax\ \n\ from\ the\ location\ from.\n
+comment3.params=list
+comment3.target=void\ dumpCSV(java.util.ArrayList)
+comment4.params=
+comment4.target=void\ bigQuakes()
+comment4.text=\n\ Prints\ earthquakes\ above\ a\ certain\ magnitude,\ and\ the\ number\ of\ such\ earthquakes.\n
+comment5.params=
+comment5.target=void\ closeToMe()
+comment5.text=\n\ \ Prints\ the\ distance\ from\ each\ earthquake\ found\ to\ the\ specified\ city,\ \n\ \ followed\ by\ the\ information\ about\ the\ city.\ Distance\ caps\ at\ a\ specified\ amount.\n
+comment6.params=
+comment6.target=void\ createCSV()
+numComments=7
