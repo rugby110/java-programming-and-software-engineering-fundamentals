@@ -111,4 +111,37 @@ public class EarthQuakeClient {
         }
     }
     
+    /**
+     *  Returns all the earthquakes from quakeData whose depth is between 
+     *  minDepth and maxDepth, exclusive.
+     */
+    public ArrayList<QuakeEntry> filterByDepth(ArrayList<QuakeEntry> quakeData, double minDepth, double maxDepth) {
+        ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
+        for (QuakeEntry qe : quakeData) {
+            double qeDepth = qe.getDepth();
+            if (qeDepth > minDepth && qeDepth < maxDepth) {
+                answer.add(qe);
+            }
+        }
+        return answer;
+    }
+    
+    /**
+     * Uses filterByDepth to print all the earthquakes from a data source whose 
+     * depth is between a given minimum and maximum value.
+     */
+    public void quakesOfDepth() {
+        EarthQuakeParser parser = new EarthQuakeParser();
+        String source = "data/nov20quakedatasmall.atom";
+        ArrayList<QuakeEntry> list = parser.read(source);
+        double minDepth = -10000.0;
+        double maxDepth = -5000.0;
+        ArrayList<QuakeEntry> quakes = filterByDepth(list, minDepth, maxDepth);
+        System.out.println("read data for " + list.size() + " quakes");
+        for (QuakeEntry quake : quakes) {
+            System.out.println(quake);
+        }
+        System.out.println("Found " + quakes.size() + " that match that criteria");
+    }
+    
 }
