@@ -144,4 +144,51 @@ public class EarthQuakeClient {
         System.out.println("Found " + quakes.size() + " that match that criteria");
     }
     
+    /**
+     * Returns an ArrayList of type QuakeEntry of all the earthquakes from quakeData 
+     * whose titles have the given phrase found at location where.
+     * @param quakeData is list of quakes
+     * @param where indicates where to search in the title and has one of three values: 
+     * ("start", "end", or "any")
+     * @param phrase is the phrase to look for
+     */
+    public ArrayList<QuakeEntry> filterByPhrase(ArrayList<QuakeEntry> quakeData, 
+    String where, String phrase) {
+        ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
+        // For each quake entry
+        for (QuakeEntry qe : quakeData) {
+            String title = qe.getInfo();
+            if (where.equals("start") && title.startsWith(phrase)) {
+                answer.add(qe);
+            } else if (where.equals("end") && title.endsWith(phrase)) {
+                answer.add(qe);
+            } else if (where.equals("any") && title.contains(phrase)) {
+                answer.add(qe);
+            }
+        }
+        return answer;
+    }
+    
+    /**
+     * Prints all the earthquakes from a data source that have phrase in their title 
+     * in a given position in the title.
+     */
+    public void quakesByPhrase() {
+        EarthQuakeParser parser = new EarthQuakeParser();
+        String source = "data/nov20quakedatasmall.atom";
+        ArrayList<QuakeEntry> list = parser.read(source);
+        //String where = "end";
+        //String phrase = "California";
+        //String where = "any";
+        //String phrase = "Can";
+        String where = "start";
+        String phrase = "Explosion";
+        ArrayList<QuakeEntry> quakes = filterByPhrase(list, where, phrase);
+        System.out.println("read data for " + list.size() + " quakes");
+        for (QuakeEntry quake : quakes) {
+            System.out.println(quake);
+        }
+        System.out.println("Found " + quakes.size() + " that match \"" + phrase + "\" at " + where);
+    }
+    
 }
