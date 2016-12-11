@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.params=min
+comment0.target=MinMagFilter(double)
+comment1.params=qe
+comment1.target=boolean\ satisfies(QuakeEntry)
+numComments=2
