@@ -23,4 +23,8 @@ public class DistanceFilter implements Filter {
         }
         return false;
     }
+    
+    public String getName() {
+        return "DistanceFilter";
+    }
 }

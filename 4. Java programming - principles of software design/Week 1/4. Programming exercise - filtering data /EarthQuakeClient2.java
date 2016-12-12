@@ -7,6 +7,8 @@ public class EarthQuakeClient2 {
     }
 
     public ArrayList<QuakeEntry> filter(ArrayList<QuakeEntry> quakeData, Filter f) { 
+        // NOTE: apparently the Filter f argument can also be any object created by 
+        // a class that implements Filter, like a MatchAllFilter object
         ArrayList<QuakeEntry> answer = new ArrayList<QuakeEntry>();
         for(QuakeEntry qe : quakeData) { 
             if (f.satisfies(qe)) { 
@@ -65,5 +67,59 @@ public class EarthQuakeClient2 {
                 qe.getInfo());
         }
     }
-
+    
+    public void testMatchAllFilter() {
+        String source = "data/nov20quakedatasmall.atom";
+        EarthQuakeParser parser = new EarthQuakeParser();
+        ArrayList<QuakeEntry> list = parser.read(source);
+        
+        /*
+        for (QuakeEntry qe : list) {
+            System.out.println(qe);
+        }
+        */
+       
+        System.out.println("read data for "+list.size()+" quakes");
+       
+        MatchAllFilter maf = new MatchAllFilter();
+        Filter f = new MagnitudeFilter(0.0, 2.0);
+        maf.addFilter(f);
+        f = new DepthFilter(-100000.0, -10000.0);
+        maf.addFilter(f);
+        f = new PhraseFilter("any", "a");
+        maf.addFilter(f);
+        
+        ArrayList<QuakeEntry> answer = filter(list, maf);
+        for (QuakeEntry qe : answer) {
+            System.out.println(qe);
+        }
+        
+        System.out.println("Filters used are: ");
+        String filters = maf.getName();
+        System.out.println(filters);
+    }
+    
+    public void testMatchAllFilter2() {
+        String source = "data/nov20quakedatasmall.atom";
+        EarthQuakeParser parser = new EarthQuakeParser();
+        ArrayList<QuakeEntry> list = parser.read(source);
+        System.out.println("read data for "+list.size()+" quakes");
+        
+        MatchAllFilter maf = new MatchAllFilter();
+        // Filter for magnitude between 0.0 and 3.0
+        Filter f = new MagnitudeFilter(0.0, 3.0);
+        maf.addFilter(f);
+        // Filter for distance from Tulsa, Oklahoma less than 10000000 meters (10000 km)
+        Location city = new Location(36.1314, -95.9372);
+        f = new DistanceFilter(city, 10000000);
+        maf.addFilter(f);
+        // Filter for the substring “Ca” in the title
+        f = new PhraseFilter("any", "Ca");
+        maf.addFilter(f);
+        
+        ArrayList<QuakeEntry> answer = filter(list, maf);
+        for (QuakeEntry qe : answer) {
+            System.out.println(qe);
+        }
+    }
 }

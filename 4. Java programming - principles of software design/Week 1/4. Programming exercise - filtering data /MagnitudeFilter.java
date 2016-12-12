@@ -26,4 +26,8 @@ public class MagnitudeFilter implements Filter {
         }
         return false;
     }
+    
+    public String getName() {
+        return "MagnitudeFilter";
+    }
 }

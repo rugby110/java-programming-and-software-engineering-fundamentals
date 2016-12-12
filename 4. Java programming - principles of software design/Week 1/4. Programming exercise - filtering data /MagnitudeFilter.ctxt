@@ -4,4 +4,6 @@ comment0.target=MagnitudeFilter(double,\ double)
 comment1.params=qe
 comment1.target=boolean\ satisfies(QuakeEntry)
 comment1.text=\n\ Returns\ true\ if\ a\ QuakeEntry\u2019s\ magnitude\ is\ between\ the\ minimum\ \n\ and\ maximum\ magnitudes,\ inclusive.\n
-numComments=2
+comment2.params=
+comment2.target=java.lang.String\ getName()
+numComments=3

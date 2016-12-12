@@ -22,5 +22,9 @@ public class DepthFilter implements Filter {
         }
         return false;
     }
+    
+    public String getName() {
+        return "DepthFilter";
+    }
 }
 
