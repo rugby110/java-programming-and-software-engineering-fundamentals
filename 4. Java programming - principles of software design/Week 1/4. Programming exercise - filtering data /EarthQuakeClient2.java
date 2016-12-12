@@ -22,29 +22,33 @@ public class EarthQuakeClient2 {
     public void quakesWithFilter() { 
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
-        String source = "data/nov20quakedatasmall.atom";
+        String source = "data/nov20quakedata.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);         
         System.out.println("read data for "+list.size()+" quakes");
-        
+       
         /*
-        Filter f = new MagnitudeFilter(4.0, 5.0);
+        Location denver = new Location(39.7392, -104.9903);
+        float max = 1000000;  // 1,000,000 m or 1,000 km
+        Filter f = new DistanceFilter(denver, max);
         ArrayList<QuakeEntry> answer = filter(list, f);
-        f = new DepthFilter(-35000.0, -12000.0);
+        System.out.println("Found " + answer.size() + " earthquakes ");
+        f = new PhraseFilter("end", "a");
         answer = filter(answer, f);
         for (QuakeEntry qe : answer) {
             System.out.println(qe);
         }
         */
        
-       Location tokyo = new Location(35.42, 139.43);
-       float maxDist = 10000000;  // 10,000,000 m or 10,000 km
-       Filter f = new DistanceFilter(tokyo, maxDist);  
-       ArrayList<QuakeEntry> answer = filter(list, f);
-       f = new PhraseFilter("end", "Japan");
-       answer = filter(answer, f);
-       for (QuakeEntry qe : answer) {
-           System.out.println(qe);
-       }
+       
+        Filter f = new MagnitudeFilter(3.5, 4.5);
+        ArrayList<QuakeEntry> answer = filter(list, f);
+        f = new DepthFilter(-55000.0, -20000.0);
+        answer = filter(answer, f);
+        for (QuakeEntry qe : answer) {
+            System.out.println(qe);
+        }
+
+        System.out.println("Found " + answer.size() + " earthquakes ");
     }
 
     public void createCSV() {
@@ -69,7 +73,7 @@ public class EarthQuakeClient2 {
     }
     
     public void testMatchAllFilter() {
-        String source = "data/nov20quakedatasmall.atom";
+        String source = "data/nov20quakedata.atom";
         EarthQuakeParser parser = new EarthQuakeParser();
         ArrayList<QuakeEntry> list = parser.read(source);
         
@@ -82,11 +86,11 @@ public class EarthQuakeClient2 {
         System.out.println("read data for "+list.size()+" quakes");
        
         MatchAllFilter maf = new MatchAllFilter();
-        Filter f = new MagnitudeFilter(0.0, 2.0);
+        Filter f = new MagnitudeFilter(1.0, 4.0);
         maf.addFilter(f);
-        f = new DepthFilter(-100000.0, -10000.0);
+        f = new DepthFilter(-180000.0, -30000.0);
         maf.addFilter(f);
-        f = new PhraseFilter("any", "a");
+        f = new PhraseFilter("any", "o");
         maf.addFilter(f);
         
         ArrayList<QuakeEntry> answer = filter(list, maf);
@@ -94,32 +98,34 @@ public class EarthQuakeClient2 {
             System.out.println(qe);
         }
         
-        System.out.println("Filters used are: ");
-        String filters = maf.getName();
-        System.out.println(filters);
+        System.out.println("Found " + answer.size() + " earthquakes ");
+        System.out.println("Filters used are: " + maf.getName());
     }
     
     public void testMatchAllFilter2() {
-        String source = "data/nov20quakedatasmall.atom";
+        String source = "data/nov20quakedata.atom";
         EarthQuakeParser parser = new EarthQuakeParser();
         ArrayList<QuakeEntry> list = parser.read(source);
         System.out.println("read data for "+list.size()+" quakes");
         
         MatchAllFilter maf = new MatchAllFilter();
-        // Filter for magnitude between 0.0 and 3.0
-        Filter f = new MagnitudeFilter(0.0, 3.0);
+        // Filter for magnitude between 0.0 and 5.0
+        Filter f = new MagnitudeFilter(0.0, 5.0);
         maf.addFilter(f);
-        // Filter for distance from Tulsa, Oklahoma less than 10000000 meters (10000 km)
-        Location city = new Location(36.1314, -95.9372);
-        f = new DistanceFilter(city, 10000000);
+        // Filter for distance from Billund, Denmark less than  3,000,000 meters (3000 km)
+        Location city = new Location(55.7308, 9.1153);
+        f = new DistanceFilter(city,  3000000);
         maf.addFilter(f);
-        // Filter for the substring “Ca” in the title
-        f = new PhraseFilter("any", "Ca");
+        // Filter for the substring “e” in the title
+        f = new PhraseFilter("any", "e");
         maf.addFilter(f);
         
         ArrayList<QuakeEntry> answer = filter(list, maf);
         for (QuakeEntry qe : answer) {
             System.out.println(qe);
         }
+        
+        System.out.println("Found " + answer.size() + " earthquakes ");
+        System.out.println("Filters used are: " + maf.getName());
     }
 }

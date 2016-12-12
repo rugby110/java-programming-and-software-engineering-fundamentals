@@ -10,10 +10,12 @@
 public class PhraseFilter implements Filter {
     private String where;
     private String phrase;
+    private String name;
     
     public PhraseFilter(String s, String s2) {
         where = s;
         phrase = s2;
+        name = "PhraseFilter";
     }
     
     public boolean satisfies(QuakeEntry qe) {
@@ -30,6 +32,6 @@ public class PhraseFilter implements Filter {
     }
     
     public String getName() {
-        return "PhraseFilter";
+        return name;
     }
 }

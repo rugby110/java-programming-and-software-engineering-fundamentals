@@ -9,10 +9,12 @@ public class MagnitudeFilter implements Filter {
     // Private instance variables 
     private double minMag;
     private double maxMag;
+    private String name;
     
     public MagnitudeFilter(double num1, double num2) {
         minMag = num1;
         maxMag = num2;
+        name = "MagnitudeFilter";
     }
     
     /**
@@ -28,6 +30,6 @@ public class MagnitudeFilter implements Filter {
     }
     
     public String getName() {
-        return "MagnitudeFilter";
+        return name;
     }
 }

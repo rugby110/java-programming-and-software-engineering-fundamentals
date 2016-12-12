@@ -132,10 +132,10 @@ public class EarthQuakeClient {
      */
     public void quakesOfDepth() {
         EarthQuakeParser parser = new EarthQuakeParser();
-        String source = "data/nov20quakedatasmall.atom";
+        String source = "data/nov20quakedata.atom";
         ArrayList<QuakeEntry> list = parser.read(source);
-        double minDepth = -10000.0;
-        double maxDepth = -5000.0;
+        double minDepth = -4000.0;
+        double maxDepth = -2000.0;
         ArrayList<QuakeEntry> quakes = filterByDepth(list, minDepth, maxDepth);
         System.out.println("read data for " + list.size() + " quakes");
         for (QuakeEntry quake : quakes) {
@@ -175,14 +175,14 @@ public class EarthQuakeClient {
      */
     public void quakesByPhrase() {
         EarthQuakeParser parser = new EarthQuakeParser();
-        String source = "data/nov20quakedatasmall.atom";
+        String source = "data/nov20quakedata.atom";
         ArrayList<QuakeEntry> list = parser.read(source);
         //String where = "end";
         //String phrase = "California";
         //String where = "any";
         //String phrase = "Can";
-        String where = "start";
-        String phrase = "Explosion";
+        String where = "any";
+        String phrase = "Can";
         ArrayList<QuakeEntry> quakes = filterByPhrase(list, where, phrase);
         System.out.println("read data for " + list.size() + " quakes");
         for (QuakeEntry quake : quakes) {
