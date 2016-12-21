@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=lat\ lon\ mag\ t\ d
+comment0.target=QuakeEntry(double,\ double,\ double,\ java.lang.String,\ double)
+comment1.params=
+comment1.target=Location\ getLocation()
+comment2.params=
+comment2.target=double\ getMagnitude()
+comment3.params=
+comment3.target=java.lang.String\ getInfo()
+comment4.params=
+comment4.target=double\ getDepth()
+comment5.params=loc
+comment5.target=int\ compareTo(QuakeEntry)
+comment6.params=
+comment6.target=java.lang.String\ toString()
+numComments=7

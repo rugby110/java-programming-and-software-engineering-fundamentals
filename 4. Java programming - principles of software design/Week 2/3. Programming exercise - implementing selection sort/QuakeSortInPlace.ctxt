@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=
+comment0.target=QuakeSortInPlace()
+comment1.params=quakes\ from
+comment1.target=int\ getSmallestMagnitude(java.util.ArrayList,\ int)
+comment2.params=in
+comment2.target=void\ sortByMagnitude(java.util.ArrayList)
+comment3.params=
+comment3.target=void\ testSort()
+comment4.params=
+comment4.target=void\ createCSV()
+comment5.params=list
+comment5.target=void\ dumpCSV(java.util.ArrayList)
+comment6.params=quakeData\ from
+comment6.target=int\ getLargestDepth(java.util.ArrayList,\ int)
+comment6.text=\n\ Returns\ the\ index\ position\ of\ the\ QuakeEntry\ with\ the\ largest\ depth\ considering\ \n\ only\ those\ QuakeEntrys\ from\ position\ from\ to\ the\ end\ of\ the\ ArrayList.\n
+comment7.params=in
+comment7.target=void\ sortByLargestDepth(java.util.ArrayList)
+comment7.text=\n\ Sorts\ the\ QuakeEntrys\ in\ the\ ArrayList\ by\ depth\ using\ the\ selection\ sort\ \n\ algorithm,\ from\ largest\ depth\ to\ smallest\ depth.\n
+numComments=8
