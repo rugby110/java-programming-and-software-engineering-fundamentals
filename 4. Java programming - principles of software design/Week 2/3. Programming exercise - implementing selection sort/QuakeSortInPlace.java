@@ -39,13 +39,16 @@ public class QuakeSortInPlace {
     public void testSort() {
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
-        String source = "data/nov20quakedatasmall.atom";
+        //String source = "data/earthquakeDataSampleSix2.atom";
         //String source = "data/nov20quakedata.atom";
+        String source = "data/nov20quakedatasmall.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);  
        
         System.out.println("read data for "+list.size()+" quakes");    
         //sortByMagnitude(list);
-        sortByLargestDepth(list);
+        //sortByLargestDepth(list);
+        sortByMagnitudeWithBubbleSort(list);
+        System.out.println("EarthQuakes in sorted order: ");
         for (QuakeEntry qe: list) { 
             System.out.println(qe);
         } 
@@ -109,6 +112,48 @@ public class QuakeSortInPlace {
             // Swap both quakes' values
             in.set(i, maxQuake);
             in.set(maxIndex, currQuake);
+        }
+    }
+    
+    /**
+     * Makes one pass of bubble sort on the ArrayList, sorting by smallest to 
+     * largest magnitude. One pass over the ArrayList compares adjacent elements 
+     * and swaps them if they are out of order.
+     * @param quakeData is the ArrayList to sort
+     * @param numSorted is the number of times this method has already been called
+     * on the ArrayList and thus also represents the number of elements that are 
+     * guaranteed to already be where they belong when the sorting is complete
+     */
+    public void onePassBubbleSort(ArrayList<QuakeEntry> quakeData, int numSorted) {
+        // For each QuakeEntry in quakeData
+        for (int i = 0; i < quakeData.size() - 1 - numSorted; i++) {
+            // Save current and next QuakeEntrys
+            QuakeEntry currQe = quakeData.get(i);
+            QuakeEntry nextQe = quakeData.get(i + 1);
+            // Swap QuakeEntrys if their magnitudes are out of order
+            if (currQe.getMagnitude() > nextQe.getMagnitude()) {
+                quakeData.set(i + 1, currQe);
+                quakeData.set(i, nextQe);
+            }
+        }
+    }
+    
+    /**
+     * Calls onePassBubbleSort N – 1 times to sort the elements in an ArrayList 
+     * of N length.
+     */
+    public void sortByMagnitudeWithBubbleSort(ArrayList<QuakeEntry> in) {
+        for (QuakeEntry qe : in) {
+            System.out.println(qe);
+        }
+        
+        for (int i = 0; i < in.size() - 1; i++) {
+            onePassBubbleSort(in, i);
+           
+            System.out.println("Printing quakes after pass " + i);
+            for (QuakeEntry qe : in) {
+                System.out.println(qe);
+            }
         }
     }
 }
