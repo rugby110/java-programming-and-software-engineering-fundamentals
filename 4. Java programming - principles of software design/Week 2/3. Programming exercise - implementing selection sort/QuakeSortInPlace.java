@@ -39,15 +39,17 @@ public class QuakeSortInPlace {
     public void testSort() {
         EarthQuakeParser parser = new EarthQuakeParser(); 
         //String source = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.atom";
-        //String source = "data/earthquakeDataSampleSix2.atom";
+        String source = "data/earthquakeDataSampleSix2.atom";
         //String source = "data/nov20quakedata.atom";
-        String source = "data/nov20quakedatasmall.atom";
+        //String source = "data/nov20quakedatasmall.atom";
         ArrayList<QuakeEntry> list  = parser.read(source);  
        
         System.out.println("read data for "+list.size()+" quakes");    
         //sortByMagnitude(list);
         //sortByLargestDepth(list);
-        sortByMagnitudeWithBubbleSort(list);
+        //sortByMagnitudeWithBubbleSort(list);
+        //sortByMagnitudeWithBubbleSortWithCheck(list);
+        sortByMagnitudeWithCheck(list);
         System.out.println("EarthQuakes in sorted order: ");
         for (QuakeEntry qe: list) { 
             System.out.println(qe);
@@ -153,6 +155,55 @@ public class QuakeSortInPlace {
             System.out.println("Printing quakes after pass " + i);
             for (QuakeEntry qe : in) {
                 System.out.println(qe);
+            }
+        }
+    }
+    
+    /**
+     * Returns true if ArrayList is sorted in order by magnitude 
+     * from smallest to largest. Otherwise returns false.
+     */
+    public boolean checkInSortedOrder(ArrayList<QuakeEntry> quakes) {
+        // Loop through ArrayList and check if adjacent quakes are out of order
+        for (int i = 0; i < quakes.size() - 1; i++) {
+            QuakeEntry currQe = quakes.get(i);
+            QuakeEntry nextQe = quakes.get(i + 1);
+            if (currQe.getMagnitude() > nextQe.getMagnitude()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Similar to sortByMagnitudeWithBubbleSort, but stops early 
+     * if the ArrayList is already sorted.
+     */
+    public void sortByMagnitudeWithBubbleSortWithCheck(ArrayList<QuakeEntry> in) {
+        for (int i = 0; i < in.size() - 1; i++) {
+            onePassBubbleSort(in, i);
+            // Stop early if the ArrayList is already sorted
+            if (checkInSortedOrder(in)) {
+                System.out.println("Sorted with " + (i + 1) + " passes");
+                break;
+            }
+        }
+    }
+    
+    /**
+     * Similar to sortByMagnitude, but stops early 
+     * if the ArrayList is already sorted.
+     */
+    public void sortByMagnitudeWithCheck(ArrayList<QuakeEntry> in) {
+        for (int i=0; i< in.size(); i++) {
+            int minIdx = getSmallestMagnitude(in,i);
+            QuakeEntry qi = in.get(i);
+            QuakeEntry qmin = in.get(minIdx);
+            in.set(i,qmin);
+            in.set(minIdx,qi);
+            if (checkInSortedOrder(in)) {
+                System.out.println("Sorted with " + (i + 1) + " passes");
+                break;
             }
         }
     }
