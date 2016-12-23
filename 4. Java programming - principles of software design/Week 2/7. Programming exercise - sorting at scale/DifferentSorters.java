@@ -47,6 +47,15 @@ public class DifferentSorters {
         for(QuakeEntry qe: list) {
             System.out.println(qe);
         }
-
+    }
+    
+    public void sortByTitleAndDepth() {
+        EarthQuakeParser parser = new EarthQuakeParser();
+        String source = "data/nov20quakedata.atom";
+        ArrayList<QuakeEntry> list = parser.read(source);
+        Collections.sort(list, new TitleAndDepthComparator());
+        int quakeNumber = 10;
+        System.out.println("Print quake entry in position " + quakeNumber);
+        System.out.println(list.get(quakeNumber));
     }
 }
