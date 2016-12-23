@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.params=where
+comment0.target=DistanceComparator(Location)
+comment1.params=q1\ q2
+comment1.target=int\ compare(QuakeEntry,\ QuakeEntry)
+numComments=2
