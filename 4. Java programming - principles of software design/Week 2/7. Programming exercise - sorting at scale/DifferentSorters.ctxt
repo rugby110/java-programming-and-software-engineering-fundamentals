@@ -7,4 +7,6 @@ comment2.params=
 comment2.target=void\ sortByDistance()
 comment3.params=
 comment3.target=void\ sortByTitleAndDepth()
-numComments=4
+comment4.params=
+comment4.target=void\ sortByLastWordInTitleThenByMagnitude()
+numComments=5
